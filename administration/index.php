@@ -110,4 +110,3 @@ echo "</td>\n<td valign='top' width='33%' class='small'>
 closetable();
 
 require_once THEMES."templates/footer.php";
-?>

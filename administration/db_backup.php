@@ -20,7 +20,7 @@ require_once "../maincore.php";
 if (!checkrights("DB") || !defined("iAUTH") || !isset($_GET['aid']) || $_GET['aid'] != iAUTH) redirect("../index.php");
 
 // Unstrip text
-function stripsiteinput($text) {
+function stripsiteinput(string $text) {
 	$search = array("&amp;", "&quot;", "&#39;", "&#92;", "&quot;", "&#39;", "&lt;", "&gt;", " ");
 	$replace = array("", "", "", "", "", "", "", "", "");
 	$text = str_replace($search, $replace, $text);
@@ -356,7 +356,7 @@ function get_table_count($prefix = ""){
 	return $tbl_count;
 }
 
-function gzcompressfile($source, $level = false) {
+function gzcompressfile(string $source, $level = false) {
 	$dest = $source.".gz";
 	$mode = "wb".$level;
 	$error = false;
@@ -381,4 +381,3 @@ function gzcompressfile($source, $level = false) {
 }
 
 require_once THEMES."templates/footer.php";
-?>

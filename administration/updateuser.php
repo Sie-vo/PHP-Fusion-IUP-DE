@@ -124,4 +124,3 @@ if ($error == "") {
 	if ($user_new_password) { $new_pass = " user_password='".md5(md5($user_new_password))."', "; } else { $new_pass = " "; }
 	$result = dbquery("UPDATE ".DB_USERS." SET user_name='$user_name',".$new_pass."user_email='$user_email', user_hide_email='$user_hide_email'".($set_avatar ? $set_avatar : "").$db_values." WHERE user_id='".$user_data['user_id']."'");
 }
-?>

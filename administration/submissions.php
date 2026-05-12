@@ -786,4 +786,3 @@ if ((isset($_GET['action']) && $_GET['action'] == "2") && (isset($_GET['t']) && 
 }
 
 require_once THEMES."templates/footer.php";
-?>

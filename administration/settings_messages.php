@@ -37,7 +37,7 @@ if (isset($_GET['error']) && isnum($_GET['error']) && !isset($message)) {
 
 if (isset($_POST['saveoptions'])) {
 	$error = 0;
-	dbquery("UPDATE ".DB_MESSAGES_OPTIONS." SET
+	$result = dbquery("UPDATE ".DB_MESSAGES_OPTIONS." SET
 		pm_email_notify = '".(isnum($_POST['pm_email_notify']) ? $_POST['pm_email_notify'] : 0)."',
 		pm_save_sent = '".(isnum($_POST['pm_save_sent']) ? $_POST['pm_save_sent'] : 0)."',
 		pm_inbox = '".(isnum($_POST['pm_inbox']) ? $_POST['pm_inbox'] : 0)."',
@@ -49,7 +49,7 @@ if (isset($_POST['saveoptions'])) {
 	redirect(FUSION_SELF.$aidlink."&error=".$error);
 }
 
-$options = dbarray(dbquery("SELECT * FROM ".DB_MESSAGES_OPTIONS." WHERE user_id='0'"), 0);
+$options = dbarray(dbquery("SELECT * FROM ".DB_MESSAGES_OPTIONS." WHERE user_id='0'"));
 $pm_inbox = $options['pm_inbox'];
 $pm_sentbox = $options['pm_sentbox'];
 $pm_savebox = $options['pm_savebox'];
@@ -90,4 +90,3 @@ echo "</tr>\n</table>\n</form>\n";
 closetable();
 
 require_once THEMES."templates/footer.php";
-?>

@@ -131,4 +131,3 @@ echo "<div style='text-align:center'><br />\n<a href='".ADMIN."images.php".$aidl
 closetable();
 
 require_once THEMES."templates/footer.php";
-?>

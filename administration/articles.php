@@ -228,4 +228,3 @@ if (!empty($result)) {
 }
 
 require_once THEMES."templates/footer.php";
-?>

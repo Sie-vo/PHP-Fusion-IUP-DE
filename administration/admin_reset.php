@@ -38,7 +38,7 @@ if (isset($_POST['reset_admins']) && isset($_POST['reset_message']) && isset($_P
 		$reset_message = stripinput($_POST['reset_message']);
 		$reset_admin = stripinput($_POST['reset_admin']);
 
-		$reset_success = array(); $reset_failed = array();
+		$reset_success = []; $reset_failed = [];
 
 		if (isnum($reset_admin)) {
 			$user_sql = "user_id='".$reset_admin."'";
@@ -227,4 +227,3 @@ echo "</table>\n";
 closetable();
 
 require_once THEMES."templates/footer.php";
-?>

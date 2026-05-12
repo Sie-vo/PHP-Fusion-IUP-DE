@@ -158,4 +158,3 @@ if (isset($_GET['action']) && $_GET['action'] == "refresh") {
 }
 
 require_once THEMES."templates/footer.php";
-?>

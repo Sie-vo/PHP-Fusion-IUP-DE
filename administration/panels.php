@@ -133,4 +133,3 @@ for ($i = 1; $i <= 4; $i++) {
 closetable();
 
 require_once THEMES."templates/footer.php";
-?>

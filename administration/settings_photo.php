@@ -34,7 +34,7 @@ if (isset($_GET['error']) && isnum($_GET['error']) && !isset($message)) {
 	}
 }
 
-function color_mapper($field, $value) {
+function color_mapper(mixed $field,mixed $value) {
 	global $settings2;
 	$cvalue[] = "00";
 	$cvalue[] = "33";
@@ -121,7 +121,7 @@ if (isset($_POST['delete_watermarks'])) {
 	redirect(FUSION_SELF.$aidlink."&error=".$error);
 }
 
-$settings2 = array();
+$settings2 = [];
 $result = dbquery("SELECT * FROM ".DB_SETTINGS);
 while ($data = dbarray($result)) {
 	$settings2[$data['settings_name']] = $data['settings_value'];
@@ -218,4 +218,3 @@ echo "</script>\n";
 closetable();
 
 require_once THEMES."templates/footer.php";
-?>

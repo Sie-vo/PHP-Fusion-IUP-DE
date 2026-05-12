@@ -406,4 +406,3 @@ if (isset($_POST['save'])) {
 }
 
 require_once THEMES."templates/footer.php";
-?>

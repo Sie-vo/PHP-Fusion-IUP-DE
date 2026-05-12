@@ -214,7 +214,7 @@ if (isset($_GET['action']) && $_GET['action'] == "refresh") {
 	redirect(FUSION_SELF.$aidlink);
 }
 
-$available_fields = array(); $enabled_fields = array();
+$available_fields = []; $enabled_fields = [];
 
 if ($temp = opendir(INCLUDES."user_fields/")) {
 	while (false !== ($file = readdir($temp))) {
@@ -325,4 +325,3 @@ echo "</table>\n";
 closetable();
 
 require_once THEMES."templates/footer.php";
-?>

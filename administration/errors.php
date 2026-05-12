@@ -25,7 +25,7 @@ include LOCALE.LOCALESET."admin/errors.php";
 add_to_head("<link rel='stylesheet' href='".THEMES."templates/errors.css' type='text/css' media='all' />");
 
 // Setting maximum number of folders for an URL
-function getMaxFolders($url, $level = 2) {
+function getMaxFolders(string $url, $level = 2) {
 	$return = "";
 	$tmpUrlArr = explode("/", $url);
 	if (count($tmpUrlArr) > $level) {
@@ -41,7 +41,7 @@ function getMaxFolders($url, $level = 2) {
 }
 
 // Wrap code
-function codeWrap($code, $maxLength = 150) {
+function codeWrap(string $code, $maxLength = 150) {
     $lines = explode("\n", $code);
     $count = count($lines);
     for($i=0; $i<$count; ++$i) {
@@ -53,7 +53,7 @@ function codeWrap($code, $maxLength = 150) {
 
 // Print code
 // Print code
-function printCode($source_code, $starting_line, $error_line = "") {
+function printCode(string $source_code,string $starting_line, $error_line = "") {
 	if (is_array($source_code)) { return false; }
 	$source_code = explode("\n", str_replace(array("\r\n", "\r"), "\n", $source_code));
 	$line_count = $starting_line; $formatted_code = "";
@@ -246,4 +246,3 @@ echo "jQuery(document).ready(function() {
 echo "/* ]]>*/\n";
 echo "</script>\n";
 require_once THEMES."templates/footer.php";
-?>

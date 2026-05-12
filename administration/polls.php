@@ -109,7 +109,7 @@ if (isset($_POST['save'])) {
 		$_GET['poll_id'] = $_POST['poll_id'];
 		$data = dbarray(dbquery("SELECT poll_title, poll_opt_0, poll_opt_1, poll_opt_2, poll_opt_3, poll_opt_4, poll_opt_5, poll_opt_6, poll_opt_7, poll_opt_8, poll_opt_9, poll_started, poll_ended FROM ".DB_POLLS." WHERE poll_id='".$_POST['poll_id']."'"));
 		$poll_title = $data['poll_title'];
-		$poll_option = array();
+		$poll_option = [];
 		for ($i = 0; $i <= 9; $i++) {
 			if ($data["poll_opt_".$i]) { $poll_option[$i] = $data["poll_opt_".$i]; }
 		}
@@ -165,4 +165,3 @@ if (isset($_POST['save'])) {
 }
 
 require_once THEMES."templates/footer.php";
-?>

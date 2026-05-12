@@ -240,4 +240,3 @@ if (dbrows($result) != 0) {
 closetable();
 
 require_once THEMES."templates/footer.php";
-?>

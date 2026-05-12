@@ -30,9 +30,9 @@ if (!defined("IN_FUSION")) { die("Access Denied"); }
  * @return \PDOStatement or FALSE on error
  * @global int   $mysql_queries_count
  * @global array $mysql_queries_time
- *
+ */
 
-function dbquery($query, $print = FALSE) {
+/*function dbquery($query, $print = FALSE) {
     global $mysql_queries_count, $mysql_queries_time;
     try {
         $mysql_queries_count++;

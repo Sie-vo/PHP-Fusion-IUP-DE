@@ -138,4 +138,3 @@ if (isset($_GET['status'])) {
 }
 
 require_once THEMES."templates/footer.php";
-?>

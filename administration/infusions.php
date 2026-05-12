@@ -46,8 +46,8 @@ if (!isset($_POST['infuse']) && !isset($_POST['infusion']) && !isset($_GET['defu
 					$file_list[] = "<option value='".$folder."' style='color:red;'>".ucwords(str_replace("_", " ", $folder))."</option>\n";
 				}
 				$inf_title = ""; $inf_description = ""; $inf_version = ""; $inf_developer = ""; $inf_email = ""; $inf_weburl = "";
-				$inf_folder = ""; $inf_newtable = array(); $inf_insertdbrow = array(); $inf_droptable = array(); $inf_altertable = array();
-				$inf_deldbrow = array(); $inf_sitelink = array();
+				$inf_folder = ""; $inf_newtable = []; $inf_insertdbrow = []; $inf_droptable = []; $inf_altertable = [];
+				$inf_deldbrow = []; $inf_sitelink = [];
 			}
 		}
 	}
@@ -195,8 +195,8 @@ if (dbrows($result)) {
 			$i++;
 		}
 		$inf_title = ""; $inf_description = ""; $inf_version = ""; $inf_developer = ""; $inf_email = ""; $inf_weburl = "";
-		$inf_folder = ""; $inf_newtable = array(); $inf_insertdbrow = array(); $inf_droptable = array(); $inf_altertable = array();
-		$inf_deldbrow = array(); $inf_sitelink = array();
+		$inf_folder = ""; $inf_newtable = []; $inf_insertdbrow = []; $inf_droptable = []; $inf_altertable = [];
+		$inf_deldbrow = []; $inf_sitelink = [];
 	}
 	echo "</table>\n";
 	closetable();
@@ -208,5 +208,3 @@ function Defuse() {
 }
 </script>\n";
 require_once THEMES."templates/footer.php";
-?>
-

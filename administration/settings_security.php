@@ -38,7 +38,7 @@ if(!IsSet($settings['recaptcha_type'])) {
 	$settings['recaptcha_type'] = 'text';
 }
 
-function captcha_options($captchas, $select) {
+function captcha_options(mixed $captchas,mixed $select) {
 	$options = "";
 	foreach ($captchas AS $captcha) {
 		$selected = ($captcha == $select ? "selected='selected'" : "");
@@ -190,4 +190,3 @@ echo "/* ]]>*/\n";
 echo "</script>\n";
 
 require_once THEMES."templates/footer.php";
-?>

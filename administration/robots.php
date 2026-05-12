@@ -22,11 +22,12 @@ if (!checkrights("ROB") || !defined("iAUTH") || !isset($_GET['aid']) || $_GET['a
 require_once THEMES."templates/admin_header.php";
 include LOCALE.LOCALESET."admin/robots.php";
 
-function openFile($file, $mode, $input = "") {
+function openFile(mixed $file,mixed $mode, $input = "") {
 	if ($mode == "READ") {
 		if (file_exists($file)) {
 			$handle = fopen($file, "rb");
 			$output = fread($handle, filesize($file));
+			fclose($handle);
 			return $output; // output file text
 		} else {
 			return false; // failed.
@@ -36,12 +37,12 @@ function openFile($file, $mode, $input = "") {
 		if (!fwrite($handle, $input)) {
 		return false; // failed.
 		} else {
-		return true; //success.
+			fclose($handle);
+			return true; //success.
 		}
 	} else {
 		return false; // failed.
 	}
-	fclose($handle);
 }
 
 if (isset($_GET['status']) && !isset($message)) {
@@ -128,4 +129,3 @@ if (file_exists(BASEDIR."robots.txt")) {
 closetable();
 
 require_once THEMES."templates/footer.php";
-?>

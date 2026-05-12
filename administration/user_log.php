@@ -81,7 +81,7 @@ if (isset($_GET['delete']) && isnum($_GET['delete'])) {
 	echo "<div id='close-message'><div class='admin-message'>".$locale['119']."</div></div>\n";
 }
 
-function orderbyOptions ($select) {
+function orderbyOptions (mixed $select) {
 	global $orderbyArray;
     $options = "";
     foreach ($orderbyArray AS $key => $value) {
@@ -91,7 +91,7 @@ function orderbyOptions ($select) {
     return $options;
 }
 
-function exprOptions ($select) {
+function exprOptions (mixed $select) {
 	global $exprArray;
 	$options = "";
 	foreach ($exprArray AS $value) {
@@ -101,7 +101,7 @@ function exprOptions ($select) {
 	return $options;
 }
 
-function userFieldOptions($select) {
+function userFieldOptions(mixed $select) {
 	$options = "<option>---</option>\n";
 	$options .= "<option ".($select == "user_name" ? "selected='selected'" : "").">user_name</option>\n";
 	$options .= "<option ".($select == "user_email" ? "selected='selected'" : "").">user_email</option>\n";
@@ -187,4 +187,3 @@ echo "</form>\n";
 closetable();
 
 require_once THEMES."templates/footer.php";
-?>

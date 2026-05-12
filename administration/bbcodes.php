@@ -74,10 +74,10 @@ if ($_GET['page'] == 1) {
         }
         redirect(FUSION_SELF.$aidlink);
     }
-    $available_bbcodes = array();
+    $available_bbcodes = [];
     if ($handle_bbcodes = opendir(INCLUDES."bbcodes/")) {
         while (FALSE !== ($file_bbcodes = readdir($handle_bbcodes))) {
-            if (!in_array($file_bbcodes, array("..", ".", "index.php")) && !is_dir(INCLUDES."bbcodes/".$file_bbcodes)) {
+            if (!in_array($file_bbcodes, ["..", ".", "index.php"]) && !is_dir(INCLUDES."bbcodes/".$file_bbcodes)) {
                 if (preg_match("/_include.php/i", $file_bbcodes) && !preg_match("/_var.php/i", $file_bbcodes) && !preg_match("/_save.php/i", $file_bbcodes) && !preg_match("/.js/i", $file_bbcodes)) {
                     $bbcode_name         = explode("_", $file_bbcodes);
                     $available_bbcodes[] = $bbcode_name[0];
@@ -170,7 +170,7 @@ if ($_GET['page'] == 1) {
         echo "</tr>\n</thead>\n<tbody>\n";
         $xx = 0;
         foreach ($available_bbcodes as $available_bbcode) {
-            $__BBCODE__ = array();
+            $__BBCODE__ = [];
             if (!in_array($available_bbcode, $enabled_bbcodes)) {
                 if (file_exists(INCLUDES."bbcodes/images/".$available_bbcode.".png")) {
                     $bbcode_image = "<img src='".INCLUDES."bbcodes/images/".$available_bbcode.".png' alt='".$available_bbcode."' style='border:1px solid black' />\n";
@@ -236,4 +236,3 @@ if ($_GET['page'] == 1) {
 }
 
 require_once THEMES."templates/footer.php";
-?>

@@ -242,7 +242,7 @@ if (isset($_POST['save_cat'])) {
 				$cat_opts .= "<option value='".$data2['forum_id']."'".$sel.">".$data2['forum_name']."</option>\n";
 			}
 
-			function create_options($selected, $hide=array(), $off=false) {
+			function create_options(mixed $selected, $hide=[], $off=false) {
 				global $locale; $option_list = ""; $options = getusergroups();
 				if ($off) { $option_list = "<option value='0'>".$locale['531']."</option>\n"; }
 				//while(list($key, $option) = each($options)){
@@ -443,4 +443,3 @@ if (isset($_POST['save_cat'])) {
 }
 
 require_once THEMES."templates/footer.php";
-?>

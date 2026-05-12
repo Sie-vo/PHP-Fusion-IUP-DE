@@ -48,7 +48,7 @@ if (isset($_POST['savesettings'])) {
 	redirect(FUSION_SELF.$aidlink."&error=".$error);
 }
 
-$settings2 = array();
+$settings2 = [];
 $result = dbquery("SELECT * FROM ".DB_SETTINGS);
 while ($data = dbarray($result)) {
 	$settings2[$data['settings_name']] = $data['settings_value'];
@@ -78,4 +78,3 @@ echo "</tr>\n</table>\n</form>\n";
 closetable();
 
 require_once THEMES."templates/footer.php";
-?>

@@ -58,7 +58,7 @@ if (str_replace(".", "", $settings['version']) < "70207") {
 	if (file_exists(INCLUDES."jscripts/tiny_mce/plugins/safari/editor_plugin_src.js")) { echo "<span style='color:red;'>includes/jscripts/tiny_mce/plugins/safari/editor_plugin_src.js </span> need to be deleted<br />"; }
 	if (file_exists(INCLUDES."jscripts/tiny_mce/plugins/xhtmlxtras/css/xhtmlxtras.css")) { echo "<span style='color:red;'>includes/jscripts/tiny_mce/plugins/xhtmlxtras/css/xhtmlxtras.css </span> need to be deleted<br />"; }
 	if (file_exists(INCLUDES."jscripts/tiny_mce/utils/mclayer.js")) { echo "<span style='color:red;'>includes/jscripts/tiny_mce/utils/mclayer.js </span> need to be deleted<br />"; }
-	if (file_exists(INCLUDES."securimage/index.php")) { echo "<span style='color:red;'>The folder includes/securimage and it´s content </span> need to be deleted<br />"; }
+	if (file_exists(INCLUDES."securimage/index.php")) { echo "<span style='color:red;'>The folder includes/securimage and itï¿½s content </span> need to be deleted<br />"; }
 	if (file_exists(INCLUDES."captcha_include.php")) { echo "<span style='color:red;'>includes/captcha_include.php </span> need to be deleted<br />"; }
 	if (file_exists(INCLUDES."jquery.js")) { echo "<span style='color:red;'>includes/jquery.js </span> need to be deleted<br />"; }
 	if (file_exists(INCLUDES."phpmailer_include.php")) { echo "<span style='color:red;'>includes/phpmailer_include.php </span> need to be deleted<br />"; }
@@ -83,4 +83,3 @@ echo "</form>\n</div>\n";
 closetable();
 
 require_once THEMES."templates/footer.php";
-?>

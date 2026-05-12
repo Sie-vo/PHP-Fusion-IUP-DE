@@ -202,4 +202,3 @@ echo "</ul>\n</div>";
 closetable();
 
 require_once THEMES."templates/footer.php";
-?>

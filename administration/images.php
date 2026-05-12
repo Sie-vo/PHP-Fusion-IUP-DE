@@ -41,6 +41,7 @@ if ($image_list) {
 }
 
 if (isset($_GET['status'])) {
+	$message = '';
 	if ($_GET['status'] == "del") {
 		$title = $locale['400'];
 		$message = "<strong>".$locale['401']."</strong>";
@@ -136,4 +137,3 @@ if (isset($_GET['del']) && in_array($_GET['del'], $image_list)) {
 }
 
 require_once THEMES."templates/footer.php";
-?>
