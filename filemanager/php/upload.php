@@ -80,4 +80,3 @@ else{
 parent.fileUploaded('.$res.');
 </script>';
 }
-?>

@@ -32,7 +32,7 @@ if($type != 'image' && $type != 'flash')
   $type = '';
 verifyPath($path);
 
-$files = listDirectory(fixPath($path), 0);
+$files = listDirectory(fixPath($path));
 natcasesort($files);
 $str = '';
 echo '[';
@@ -56,4 +56,3 @@ foreach ($files as $f){
 $str = mb_substr($str, 0, -1);
 echo $str;
 echo ']';
-?>

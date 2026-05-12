@@ -31,7 +31,7 @@ $newPath = trim(empty($_POST['n'])?'':$_POST['n']);
 verifyPath($path);
 verifyPath($newPath);
 
-function copyDir($path, $newPath){
+function copyDir(mixed $path,mixed $newPath){
   $items = listDirectory($path);
   if(!is_dir($newPath))
     mkdir ($newPath, octdec(DIRPERMISSIONS));
@@ -54,4 +54,3 @@ if(is_dir(fixPath($path))){
 }
 else
   echo getErrorRes(t('E_CopyDirInvalidPath'));
-?>

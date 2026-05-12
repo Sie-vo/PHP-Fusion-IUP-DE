@@ -43,7 +43,7 @@ else{
     header('Content-Disposition: attachment; filename="'.$zipFile.'"');
     header('Content-Type: application/force-download');
     readfile($zipPath);
-    function deleteTmp($zipPath){
+    function deleteTmp(mixed $zipPath){
       @unlink($zipPath);
     }
     register_shutdown_function('deleteTmp', $zipPath);
@@ -52,4 +52,3 @@ else{
     echo '<script>alert("'.  addslashes(t('E_CreateArchive')).'");</script>';
   }
 }
-?>

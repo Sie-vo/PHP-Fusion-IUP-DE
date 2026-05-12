@@ -26,7 +26,7 @@ include 'functions.inc.php';
 verifyAction('DIRLIST');
 checkAccess('DIRLIST');
 
-function getFilesNumber($path, $type){
+function getFilesNumber(mixed $path,mixed $type){
   $files = 0;
   $dirs = 0;
   $tmp = listDirectory($path);
@@ -41,9 +41,9 @@ function getFilesNumber($path, $type){
 
   return array('files'=>$files, 'dirs'=>$dirs);
 }
-function GetDirs($path, $type){
+function GetDirs(mixed $path,mixed $type){
   $ret = $sort = array();
-  $files = listDirectory(fixPath($path), 0);
+  $files = listDirectory(fixPath($path));
   foreach ($files as $f){
     $fullPath = $path.'/'.$f;
     if(!is_dir(fixPath($fullPath)) || $f == '.' || $f == '..')
@@ -69,4 +69,3 @@ $tmp = getFilesNumber(fixPath(getFilesPath()), $type);
 echo '{"p":"'.  mb_ereg_replace('"', '\\"', getFilesPath()).'","f":"'.$tmp['files'].'","d":"'.$tmp['dirs'].'"}';
 GetDirs(getFilesPath(), $type);
 echo "\n]";
-?>
