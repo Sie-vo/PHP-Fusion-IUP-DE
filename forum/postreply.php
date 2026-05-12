@@ -250,4 +250,3 @@ if (isset($_POST['postreply'])) {
 		}
 	}
 }
-?>

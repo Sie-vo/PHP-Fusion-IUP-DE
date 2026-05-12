@@ -216,4 +216,3 @@ if (isset($_GET['step']) && $_GET['step'] == "renew") {
 }
 
 require_once THEMES."templates/footer.php";
-?>

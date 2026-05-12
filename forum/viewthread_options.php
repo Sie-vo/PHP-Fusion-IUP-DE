@@ -254,4 +254,3 @@ if (isset($_POST['delete_posts']) && isset($_POST['delete_post']) && is_array($_
 		die();
 	}
 }
-?>

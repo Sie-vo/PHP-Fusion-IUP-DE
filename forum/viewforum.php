@@ -284,4 +284,3 @@ if(isnum($threadcount) && isnum($postcount)){
 }
 
 require_once THEMES."templates/footer.php";
-?>

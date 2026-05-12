@@ -184,7 +184,7 @@ if (isset($_POST['postnewthread'])) {
 		$sig_checked = " checked='checked'";
 		if ($settings['thread_notify']) { $notify_checked = ""; }
 		$poll_title = "";
-		$poll_opts = array();
+		$poll_opts = [];
 	}
 	add_to_title($locale['global_201'].$locale['401']);
 	echo "<!--pre_postnewthread-->";
@@ -263,4 +263,3 @@ if (isset($_POST['postnewthread'])) {
 	closetable();
 	echo "<!--sub_postnewthread-->";
 }
-?>
