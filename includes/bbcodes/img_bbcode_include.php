@@ -1,7 +1,7 @@
 <?php
 /*-------------------------------------------------------+
 | PHP-Fusion Content Management System
-| Copyright © 2002 - 2007 Nick Jones
+| Copyright ï¿½ 2002 - 2007 Nick Jones
 | https://www.php-fusion.co.uk/
 +--------------------------------------------------------+
 | Filename: img_bbcode_include.php
@@ -17,7 +17,7 @@
 +--------------------------------------------------------*/
 if (!defined("IN_FUSION")) { die("Access Denied"); }
 if (!function_exists("img_bbcode_callback")) {
-	function img_bbcode_callback($matches) {
+	function img_bbcode_callback(mixed $matches) {
 		if (substr($matches[3], -1, 1) != "/") {
 			return "<span style='display: block; width: 300px; max-height: 300px; overflow: auto;' class='forum-img-wrapper'><img src='".$matches[1].str_replace(array("?",
 																																									   "&amp;",
@@ -29,4 +29,3 @@ if (!function_exists("img_bbcode_callback")) {
 	}
 }
 $text = preg_replace_callback("#\[img\]((http|ftp|https|ftps)://)(.*?)(\.(jpg|jpeg|gif|png|JPG|JPEG|GIF|PNG))\[/img\]#si", "img_bbcode_callback", $text);
-?>

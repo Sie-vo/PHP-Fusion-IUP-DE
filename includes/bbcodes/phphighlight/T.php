@@ -64,5 +64,3 @@ if (!defined('T_TRY')) {
 if (!defined('T_CLONE')) {
 	define('T_CLONE', -1);
 }
-
-?>

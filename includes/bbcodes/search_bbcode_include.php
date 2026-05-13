@@ -18,7 +18,7 @@
 if (!defined("IN_FUSION")) { die("Access Denied"); }
 
 if (!function_exists('replace_searchparams')) {	
-	function replace_searchparams($m) {
+	function replace_searchparams(mixed $m) {
 		global $settings;
 		// first convert searchstring to eliminate all unwanted chars
 		$search_string = htmlspecialchars_decode($m['content'],ENT_QUOTES);
@@ -42,4 +42,3 @@ if (!function_exists('replace_searchparams')) {
 	}
 }
 $text = preg_replace_callback('#\[search(=(?P<search>(.*?)))?\](?P<content>.*?)\[/search\]#i', 'replace_searchparams', $text);
-?>

@@ -25,4 +25,3 @@ array(
 "bbcode_end"		=>	"[/tlen]",
 "usage"			=>	"[tlen]".$locale["bb_tlen_usage"]."[/tlen]"
 );
-?>

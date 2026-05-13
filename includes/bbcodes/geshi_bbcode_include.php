@@ -63,4 +63,3 @@ for ($i = 0; $i < count($matches[1]); $i++) {
 	}
 	unset($lines);
 }
-?>

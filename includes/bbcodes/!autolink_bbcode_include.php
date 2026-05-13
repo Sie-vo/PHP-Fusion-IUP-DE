@@ -20,7 +20,7 @@
 if (!defined("IN_FUSION")) { die("Access Denied"); }
 
 if (!function_exists('autolink_run')) {
-	function bbcode_off($text, $part) {
+	function bbcode_off(string $text,int $part) {
 		if ($part == 1) {
 			$text = str_replace("[", " &#91;", $text);
 			$text = str_replace("]", "&#93; ", $text);
@@ -32,49 +32,49 @@ if (!function_exists('autolink_run')) {
 		return $text;
 	}
 
-	function autolink_callbackPreCode($matches) {
+	function autolink_callbackPreCode(mixed $matches) {
 		return '[code]'.bbcode_off($matches[1], 1).'[/code]';
 	}
 
-	function autolink_callbackPostCode($matches) {
+	function autolink_callbackPostCode(mixed $matches) {
 		return '[code]'.bbcode_off($matches[1], 2).'[/code]';
 	}
 
-	function autolink_callbackPreGeshi($matches) {
+	function autolink_callbackPreGeshi(mixed $matches) {
 		return '[geshi='.$matches[1].']'.bbcode_off($matches[2], '1').'[/geshi]';
 	}
 
-	function autolink_callbackPostGeshi($matches) {
+	function autolink_callbackPostGeshi(mixed $matches) {
 		return '[geshi='.$matches[1].']'.bbcode_off($matches[2], 2).'[/geshi]';
 	}
 
-	function autolink_callbackPrePHP($matches) {
+	function autolink_callbackPrePHP(mixed $matches) {
 		return '[php]'.bbcode_off($matches[1], 1).'[/php]';
 	}
 
-	function autolink_callbackPostPHP($matches) {
+	function autolink_callbackPostPHP(mixed $matches) {
 		return '[php]'.bbcode_off($matches[1], 2).'[/php]';
 	}
 
-	function autolink_callbackURLWithProtocol($matches) {
+	function autolink_callbackURLWithProtocol(mixed $matches) {
 		$len = strlen($matches[2]);
 		return $matches[1].'<a href="'.$matches[2].'" target="_blank" title="autolink">'
 		.trimlink($matches[2], 20)
 		.($len > 30	? substr($matches[2], $len - 10, $len) : '').'</a>';
 	}
 
-	function autolink_callbackURLWithoutProtocol($matches) {
+	function autolink_callbackURLWithoutProtocol(mixed $matches) {
 		$len = strlen($matches[2]);
 		return $matches[1].'<a href="http://'.$matches[2].'" target="_blank" title="autolink">'
 		.trimlink($matches[2], 20)
 		.(strlen($matches[1]) > 30 ? substr($matches[2], $len - 10, $len) : '').'</a>';
 	}
 
-	function autolink_callbackMail($matches) {
+	function autolink_callbackMail(mixed $matches) {
 		return hide_email($matches[0]);
 	}
 
-	function autolink_run($text) {
+	function autolink_run(string $text) {
 		$containsCode = strpos($text, '[code]') !== FALSE;
 		$containsGeshi = strpos($text, '[geshi]') !== FALSE;
 		$containsPHP = strpos($text, '[php]') !== FALSE;

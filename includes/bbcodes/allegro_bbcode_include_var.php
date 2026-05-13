@@ -25,4 +25,3 @@ array(
 "bbcode_end"		=>	"[/allegro]",
 "usage"			=>	"[allegro]".$locale["bb_allegro_usage"]."[/allegro]"
 );
-?>

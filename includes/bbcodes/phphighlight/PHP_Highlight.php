@@ -75,7 +75,6 @@ class PHP_Highlight {
 	 * Constructor
 	 * Populates highlight array
 	 * @param   bool $inline    If inline styles rather than colors are to be used
-	 * @param   bool $plaintext Do not format code outside PHP tags
 	 */
 	function __construct($inline = FALSE) {
 		// Inline
@@ -126,14 +125,14 @@ class PHP_Highlight {
 	function toArray($funcref = TRUE, $blocks = FALSE) {
 		// Ensure source has been loaded
 		if ($this->_source == FALSE) {
-			return FALSE;
+			return [];
 		}
 		// Init
 		$tokens = token_get_all($this->_source);
 		$manual = $this->manual;
 		$span = $this->span;
 		$i = 0;
-		$out = array();
+		$out = [];
 		$out[$i] = '';
 		// Loop through each token
 		foreach ($tokens as $j => $token) {
@@ -448,5 +447,3 @@ class PHP_Highlight {
 		endswitch;
 	}
 }
-
-?>

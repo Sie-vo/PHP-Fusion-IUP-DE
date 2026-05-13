@@ -18,7 +18,7 @@
 require "../../maincore.php";
 require INCLUDES."class.httpdownload.php";
 
-function unstripinput($text) {
+function unstripinput(string $text) {
 	if (QUOTES_GPC) $text = stripslashes($text);
 	$search = array("\n", "&amp;", "&quot;", "&#39;", "&#92;", "&quot;", "&#39;", "&lt;", "&gt;");
 	$replace = array("\r\n", "&", "\"", "'", "\\", '\"', "\'", "<", ">");
@@ -49,4 +49,3 @@ if ((isset($_GET['thread_id']) && isnum($_GET['thread_id'])) && (isset($_GET['po
 		}
 	}
 }
-?>

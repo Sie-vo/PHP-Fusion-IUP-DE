@@ -25,4 +25,3 @@ array(
 "bbcode_end"		=>	"[/googlevideo]",
 "usage"			=>	"[googlevideo]".$locale["bb_googlevideo_usage"]."[/googlevideo]"
 );
-?>

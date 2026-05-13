@@ -24,4 +24,3 @@ array(
 "bbcode_end"		=>	"",
 "usage"				=>	$locale['bb_autolink_usage']
 );
-?>
