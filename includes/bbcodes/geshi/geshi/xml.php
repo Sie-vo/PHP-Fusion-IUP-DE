@@ -67,5 +67,3 @@ $language_data = array('LANG_NAME' => 'XML', 'COMMENT_SINGLE' => array(), 'COMME
 													3 => array('<' => '>')),
 					   'HIGHLIGHT_STRICT_BLOCK' => array(-1 => FALSE, 0 => FALSE, 1 => FALSE, 2 => FALSE, 3 => TRUE),
 					   'TAB_WIDTH' => 2, 'PARSER_CONTROL' => array('ENABLE_FLAGS' => array('NUMBERS' => GESHI_NEVER)));
-
-?>
