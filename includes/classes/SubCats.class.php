@@ -18,22 +18,22 @@
 if (!defined("IN_FUSION")) { die("Access Denied"); }
 
 class SubCats {
-	public $catTable;
-	public $catId;
-	public $catName;
-	public $catLeft;
-	public $catRight;
+	public string $catTable;
+	public mixed $catId;
+	public mixed $catName;
+	public string $catLeft;
+	public string $catRight;
 	
-	public $selectFields			= array("*");
+	public array $selectFields			= ["*"];
 	
-	public $itemTable;
-	public $itemCatId;
-	public $itemId;
-	public $itemName;
-	public $itemOrder;
+	public mixed $itemTable;
+	public mixed $itemCatId;
+	public mixed $itemId;
+	public mixed $itemName;
+	public mixed $itemOrder;
 
 	// Get Single Node Data
-	public function getSingleNode($nodeId) {
+	public function getSingleNode(mixed $nodeId) {
 		return dbquery("SELECT ".$this->_getSelectFields()." FROM ".$this->catTable." WHERE ".$this->catId."='".$nodeId."' LIMIT 1");
 	}
 
@@ -43,7 +43,7 @@ class SubCats {
 	}
 	
 	// Get full tree for a category
-	public function getFullTree($id) {
+	public function getFullTree(mixed $id) {
 		return dbquery("
 			SELECT ".$this->_getSelectFields("node")." FROM ".$this->catTable." AS node,
 			".$this->catTable." AS parent
@@ -63,7 +63,7 @@ class SubCats {
 	}
 	
 	// Retrieving a Single Path
-	public function getSinglePath($id) {
+	public function getSinglePath(string $id) {
 		return dbquery("
 			SELECT ".$this->_getSelectFields("parent")." FROM ".$this->catTable." AS node,
 			".$this->catTable." AS parent
@@ -86,7 +86,7 @@ class SubCats {
 	}
 
 	// Depth of a Sub-Tree
-	public function getSubTreeDepth($id) {
+	public function getSubTreeDepth(string $id) {
 		return dbquery("
 			SELECT ".$this->_getSelectFields("node").", (COUNT(parent.".$this->catId.") - (sub_tree.depth + 1)) AS depth
 			FROM ".$this->catTable." AS node,
@@ -109,7 +109,7 @@ class SubCats {
 	}
 
 	// Find the Immediate Subordinates of a Node
-	public function getIntemediateSubordinates($id) {
+	public function getIntemediateSubordinates(string $id) {
 		return dbquery("
 			SELECT ".$this->_getSelectFields("node").", (COUNT(parent.".$this->catId.") - (sub_tree.depth + 1)) AS depth
 			FROM ".$this->catTable." AS node,
@@ -148,7 +148,7 @@ class SubCats {
 	}
 	
 	// Adding new node to the database
-	public function addNode($nodeId, $nodeName, $addInside, $nodeFields, $nodeValues) {
+	public function addNode(string $nodeId,string $nodeName,string $addInside,string $nodeFields,string $nodeValues) {
 		// Lock table
 		$result = dbquery("LOCK TABLE ".$this->catTable." WRITE");
 
@@ -187,7 +187,7 @@ class SubCats {
 	}
 	
 	// Update other node values
-	private function _setNewNodeUpdate($value) {
+	private function _setNewNodeUpdate(string $value) {
 		$result = dbquery(
 			"UPDATE ".$this->catTable." 
 			SET ".$this->catRight."=".$this->catRight."+2 
@@ -201,7 +201,7 @@ class SubCats {
 	}
 	
 	// Insert the new node
-	private function _setNewNodeInset($nodeName, $value, $nodeFields = "", $nodeValues = "") {
+	private function _setNewNodeInset(string $nodeName,string $value,string $nodeFields = "",string  $nodeValues = "") {
 		$nodeFields = ($nodeFields ? ", ".$nodeFields : "");
 		$nodeValues = ($nodeValues ? ", ".$nodeValues : "");
 
@@ -248,4 +248,3 @@ class SubCats {
 		return $return;
 	}
 }
-?>

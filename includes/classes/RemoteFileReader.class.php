@@ -27,9 +27,9 @@ class RemoteFileReader {
 	
 	/**
 	* Constructor method for the RemoteFileReader Class
-	* @param remoteURL - the URL to the remote file.
+	* @param string $remoteURL - the URL to the remote file.
 	*/
-	public function __construct($remoteURL) { 
+	public function __construct(string $remoteURL) { 
 		$this->_requestURL = $remoteURL;
 		$this->_setRequestMethod();
 		if ($this->_requestMethod != 0) {
@@ -47,7 +47,7 @@ class RemoteFileReader {
 	
 	/** Get any HTTP error while readign the remote file
 	* return - array containing the key 'number' containing the HTTP error code,
-				and a key 'message' containing the human readable error message.
+	*			and a key 'message' containing the human readable error message.
 	*/
 	public function getError() {
 		return array("number" => $this->_errorNumber, "message" => $this->_errorMessage);
@@ -98,7 +98,10 @@ class RemoteFileReader {
 		}
 		
 		// Close curl
-		curl_close($culr);
+		/** @todo Rückwärtskompatibilität
+		 *  Sollte es zu Fehlern unter PHP 8.5 und höher führen dann auskommentieren
+		 */
+		if(phpversion() <= 8.5) curl_close($culr);
 	}
 	
 	// Use fopen to get content
@@ -125,7 +128,7 @@ class RemoteFileReader {
 	}
 	
 	// Get HTTP Status Message
-	private function _getHttpStatus($code) {
+	private function _getHttpStatus(mixed $code) {
 		$httpStatus = array(
 			100 => "Continue",
 			101 => "Switching Protocols",
@@ -177,4 +180,3 @@ class RemoteFileReader {
 		}
 	}
 }
-?>

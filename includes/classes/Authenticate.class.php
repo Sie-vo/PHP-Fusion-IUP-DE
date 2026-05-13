@@ -16,7 +16,10 @@
 | written permission from the original author(s).
 +--------------------------------------------------------*/
 if (!defined("IN_FUSION")) { die("Access Denied"); }
-
+/**
+ * @var array $settings
+ * @var array $locale
+ */
 $fusion_domain = (strstr($settings['site_host'], "www.") ? substr($settings['site_host'], 3): $settings['site_host']);
 define("COOKIE_DOMAIN", $settings['site_host'] != 'localhost' ? $fusion_domain : false);
 define("COOKIE_PATH", $settings['site_path']);
@@ -29,11 +32,11 @@ class Authenticate {
 
 	private $_userData = array("user_level" => 0, "user_rights" => "", "user_groups" => "", "user_theme" => "Default");
 
-	public function __construct($inputUserName, $inputPassword, $remember) {
+	public function __construct(string $inputUserName,string $inputPassword,mixed $remember) {
 		$this->_authenticate($inputUserName, $inputPassword, $remember);
 	}
 
-	private function _authenticate($inputUserName, $inputPassword, $remember) {
+	private function _authenticate(string $inputUserName,string $inputPassword,mixed $remember) {
 		global $locale, $settings;
 
 		$inputUserName = preg_replace(array("/\=/","/\#/","/\sOR\s/"), "", stripinput($inputUserName));
@@ -116,7 +119,7 @@ class Authenticate {
 	}
 
 	// Set User Cookie
-	public static function setUserCookie($userID, $salt, $algo, $remember = false, $userCookie = true) {
+	public static function setUserCookie(mixed $userID,mixed $salt,mixed $algo,bool $remember = false,bool $userCookie = true) {
 
 		global $_COOKIE;
 
@@ -300,7 +303,7 @@ class Authenticate {
 	}
 
 	// Checks and sets the admin last visit cookie
-	public static function setAdminCookie($inputPassword) {
+	public static function setAdminCookie(string $inputPassword) {
 		global $userdata;
 
 		if (iADMIN) {
@@ -331,7 +334,7 @@ class Authenticate {
 	}
 
 	// Get Loging Redirect Url
-	public static function getRedirectUrl($errorId, $userStatus = "", $userId = "") {
+	public static function getRedirectUrl(string $errorId,string $userStatus = "",string $userId = "") {
 		global $_SERVER;
 
 		$return = BASEDIR."login.php?error=".$errorId;
@@ -354,7 +357,7 @@ class Authenticate {
 	}
 
 	// Set user theme
-	private static function _setUserTheme(&$user) {
+	private static function _setUserTheme(array&$user) {
 		global $settings;
 
 		if (IsSet($user['user_theme']) && IsSet($settings['userthemes']) && $settings['userthemes'] == 0 && $user['user_level'] < 102 && $user['user_theme'] != "Default") {
@@ -362,7 +365,7 @@ class Authenticate {
 		}
 	}
 
-	private static function _setCookie ($cookieName, $cookieContent, $cookieExpiration, $cookiePath, $cookieDomain, $secure = false, $httpOnly = false) {
+	private static function _setCookie (mixed $cookieName,mixed $cookieContent,mixed $cookieExpiration,mixed $cookiePath,mixed $cookieDomain, $secure = false, $httpOnly = false) {
 		if (version_compare(PHP_VERSION, '5.2.0', '>=')) {
 			setcookie($cookieName, (!empty($cookieContent) ? $cookieContent : ""), $cookieExpiration, $cookiePath, $cookieDomain, $secure, $httpOnly);
 		} else {

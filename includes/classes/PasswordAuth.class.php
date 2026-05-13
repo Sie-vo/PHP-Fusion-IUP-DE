@@ -27,9 +27,9 @@ class PasswordAuth {
 	public $inputNewPassword				= "";
 	public $inputNewPassword2				= "";
 
-	private $_newAlgo;
-	private $_newSalt;
-	private $_newPasswordHash;
+	private string $_newAlgo;
+	private string $_newSalt;
+	private string $_newPasswordHash;
 
 	// Checks if Current Password is valid
 	public function isValidCurrentPassword($createNewHash = false) {
@@ -80,7 +80,7 @@ class PasswordAuth {
 	}
 
 	// Generate new password hash and password salt
-	protected function _setNewHash($password) {
+	protected function _setNewHash(string $password) {
 		global $settings;
 
 		$this->_newAlgo 			= $settings['password_algorithm'];
@@ -98,7 +98,7 @@ class PasswordAuth {
 	}
 
 	// Encrypts the password with given algorithm and salt
-	private function _hashPassword($password, $algorithm, $salt) {
+	private function _hashPassword(string $password,string $algorithm,string $salt) {
 		if ($algorithm != "md5") {
 			return hash_hmac($algorithm, $password, $salt);
 		} else {
@@ -127,4 +127,3 @@ class PasswordAuth {
 		return sha1(PasswordAuth::getNewPassword($length));
 	}
 }
-?>

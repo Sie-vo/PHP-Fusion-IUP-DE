@@ -24,7 +24,7 @@ class LostPassword extends PasswordAuth {
 	private $_userEMail				= "";
 	private $_newPassword			= "";
 
-	public function sendPasswordRequest ($email) {
+	public function sendPasswordRequest (string $email) {
 		global $locale, $settings;
 		if ($this->_isValidEMailAddress($email)) {
 			$data = dbarray(dbquery("SELECT user_name, user_password FROM ".DB_USERS." WHERE user_email='".$this->_userEMail."'"));
@@ -38,7 +38,7 @@ class LostPassword extends PasswordAuth {
 		}
 	}
 
-	public function checkPasswordRequest ($email, $account) {
+	public function checkPasswordRequest (string $email,string $account) {
 		if (!$this->_isValidEMailAddress($email)) { return false; }
 		if ((preg_match("/^[0-9a-z]{32}$/", $account) && dbcount("(user_id)", DB_USERS, "user_email='".$email."' AND user_algo='md5'")) ||
 			 preg_match("/^[0-9a-z]{64}$/", $account)) {
@@ -90,7 +90,7 @@ class LostPassword extends PasswordAuth {
 		echo $this->_html;
 	}
 
-	private function _isValidEMailAddress ($email) {
+	private function _isValidEMailAddress (string $email) {
 		$email = stripinput(trim(preg_replace("/ +/i", "", $email)));
 		if (preg_match("/^[-0-9A-Z_\.]{1,50}@([-0-9A-Z_\.]+\.){1,50}([0-9A-Z]){2,4}$/i", $email)) {
 			$check = dbcount("(user_id)", DB_USERS, "user_email='".$email."'");
@@ -118,4 +118,3 @@ class LostPassword extends PasswordAuth {
 		$this->_html .= "<div style='text-align:center'><br />\n".$locale['402']."<br /><br />\n<a href='index.php'>".$locale['403']."</a><br /><br />\n</div>\n";
 	}
 }
-?>

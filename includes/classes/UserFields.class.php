@@ -18,28 +18,28 @@
 if (!defined("IN_FUSION")) { die("Access Denied"); }
 
 class UserFields {
-	public $displayTerms 				= 0;
-	public $displayValidation 			= 0;
-	public $errorsArray 				= array();
-	public $formaction 					= FUSION_SELF;
-	public $formname 					= "inputform";
-	public $isAdminPanel 				= false;
-	public $postName;
-	public $postValue;
-	public $showAdminOptions 			= false;
-	public $showAdminPass 				= true;
-	public $showAvatarInput 			= true;
-	public $skipCurrentPass 			= false;
-	public $registration				= false;
-	public $userData 					= array("user_name", "user_password", "user_admin_password", "user_email");
+	public int $displayTerms 				= 0;
+	public int $displayValidation 			= 0;
+	public array $errorsArray 				= [];
+	public string $formaction 					= FUSION_SELF;
+	public string $formname 					= "inputform";
+	public bool $isAdminPanel 				= false;
+	public string $postName;
+	public string $postValue;
+	public bool $showAdminOptions 			= false;
+	public bool $showAdminPass 				= true;
+	public bool $showAvatarInput 			= true;
+	public bool $skipCurrentPass 			= false;
+	public bool $registration				= false;
+	public array $userData 					= ["user_name", "user_password", "user_admin_password", "user_email"];
 
-	private $html						= "";
-	private $js							= "";
-	private $javaScriptOther;
-	private $javaScriptRequired;
-	private $method;
+	private string $html						= "";
+	private string $js							= "";
+	private string $javaScriptOther;
+	private string $javaScriptRequired;
+	private string $method;
 
-	private $_userNameChange		= true;
+	private bool $_userNameChange		= true;
 
 	public function displayInput() {
 		global $locale;
@@ -112,7 +112,7 @@ class UserFields {
 		echo $this->html;
 	}
 
-	public function setUserNameChange($value) {
+	public function setUserNameChange(bool $value) {
 		$this->_userNameChange = $value;
 	}
 
@@ -153,7 +153,7 @@ class UserFields {
 		$this->javaScriptOther .= "	}\n";
 	}
 
-	private function basicInputField($name, $text, $length, $isRequired = "", $type = "text", $haveValue = true, $error_class = "") {
+	private function basicInputField(string $name,string $text,string $length,string $isRequired = "",string $type = "text",bool $haveValue = true,string $error_class = "") {
 		$errorClass = $error_class != "" ? $error_class : $name;
 		$class = $errorClass." tbl".$this->getErrorClass($errorClass);
 
@@ -221,7 +221,7 @@ class UserFields {
 		if ($this->showAvatarInput) { $this->renderAvatarInput(); }
 	}
 
-	private function basicOutputField($name, $value, $class, $rowspan = 0) {
+	private function basicOutputField(string $name,string $value,string $class,int $rowspan = 0) {
 		global $locale;
 
 		$returnHTML = "<tr>\n";
@@ -313,6 +313,7 @@ class UserFields {
 
 	private function renderAdminOptions() {
 		global $locale, $groups_cache, $aidlink;
+		$groups_cache =[];
 
 		if (!$groups_cache) { cache_groups(); }
 
@@ -460,7 +461,7 @@ class UserFields {
 		}
 	}
 
-	private function getErrorClass($field) {
+	private function getErrorClass(mixed $field) {
 		if (isset($this->errorsArray[$field])) {
 			return " tbl-error";
 		} else {
@@ -468,11 +469,10 @@ class UserFields {
 		}
 	}
 
-	private function setRequiredJavaScript($field, $message) {
+	private function setRequiredJavaScript(string $field,string $message) {
 		$this->javaScriptRequired .= "		if (frm.".$field.".value==\"\") {\n";
 		$this->javaScriptRequired .= "			alert(\"".$message."\");\n";
 		$this->javaScriptRequired .= "			return false;\n";
 		$this->javaScriptRequired .= "		}\n";
 	}
 }
-?>
