@@ -19,7 +19,7 @@ if (!defined("IN_FUSION")) { die("Access Denied"); }
 
 // Render comments template
 if (!function_exists("render_comments")) {
-	function render_comments($c_data, $c_info){
+	function render_comments(array $c_data,array $c_info){
 		global $locale;
 		opentable($locale['c100']);
 		if (!empty($c_data)){
@@ -49,4 +49,3 @@ if (!function_exists("render_comments")) {
 		closetable();   
 	}
 }
-?>

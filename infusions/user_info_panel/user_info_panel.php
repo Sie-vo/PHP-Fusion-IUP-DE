@@ -16,7 +16,12 @@
 | written permission from the original author(s).
 +--------------------------------------------------------*/
 if (!defined("IN_FUSION")) { die("Access Denied"); }
-
+/**
+ * @var array  $settings
+ * @var array $locale
+ * @var array $userdata
+ * @var string $aidlink
+ */
 if (iMEMBER) {
 	$msg_count = dbcount("(message_id)", DB_MESSAGES, "message_to='".$userdata['user_id']."' AND message_read='0' AND message_folder='0'");
 
@@ -84,4 +89,3 @@ if (iMEMBER) {
 		closeside();
 	}
 }
-?>

@@ -48,7 +48,7 @@ function render_page($license = false) {
 }
 
 /* New in v7.02 - render comments */
-function render_comments($c_data, $c_info){
+function render_comments(array $c_data,array $c_info){
 	global $locale, $settings;
 	opentable($locale['c100']);
 	if (!empty($c_data)){
@@ -78,7 +78,7 @@ function render_comments($c_data, $c_info){
 	closetable();   
 }
 
-function render_news($subject, $news, $info) {
+function render_news(string $subject,string $news,array $info) {
 
 	echo "<table cellpadding='0' cellspacing='0' width='100%'>\n<tr>\n";
 	echo "<td class='capmain-left'></td>\n";
@@ -97,7 +97,7 @@ function render_news($subject, $news, $info) {
 
 }
 
-function render_article($subject, $article, $info) {
+function render_article(string $subject,string $article,array $info) {
 	
 	echo "<table width='100%' cellpadding='0' cellspacing='0'>\n<tr>\n";
 	echo "<td class='capmain-left'></td>\n";
@@ -113,7 +113,7 @@ function render_article($subject, $article, $info) {
 
 }
 
-function opentable($title) {
+function opentable(string $title) {
 
 	echo "<table cellpadding='0' cellspacing='0' width='100%'>\n<tr>\n";
 	echo "<td class='capmain-left'></td>\n";
@@ -134,9 +134,7 @@ function closetable() {
 
 }
 
-function openside($title, $collapse = false, $state = "on") {
-
-	global $panel_collapse; $panel_collapse = $collapse;
+function openside(string $title, $collapse = false, $state = "on") {
 	
 	echo "<table cellpadding='0' cellspacing='0' width='100%'>\n<tr>\n";
 	echo "<td class='scapmain-left'></td>\n";
@@ -161,4 +159,3 @@ function closeside() {
 	echo "</td>\n</tr>\n</table>\n";
 
 }
-?>

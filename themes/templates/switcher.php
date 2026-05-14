@@ -28,7 +28,7 @@ class Switcher{
 		$this->buttons = array();
 		$this->changed = false;
 		$this->class = $class;
-		$this->cookie = $_COOKIE;
+		$this->cookies = $_COOKIE;
 		$this->default = $default;
 		$this->dir = THEME.$dir;
 		$this->enabled = true;

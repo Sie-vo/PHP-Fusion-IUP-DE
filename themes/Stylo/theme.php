@@ -82,7 +82,7 @@ if ($settings['rendertime_enabled'] == 1 || ($settings['rendertime_enabled'] == 
 
 }
 
-function render_comments($c_data, $c_info){
+function render_comments(array $c_data,array $c_info){
 	global $locale, $settings;
 
 	if (!empty($c_data)){
@@ -119,7 +119,7 @@ function render_comments($c_data, $c_info){
 
 }
 
-function render_news($subject, $news, $info) {
+function render_news(string $subject,string $news,array $info) {
 global $locale, $settings, $aidlink;
 
 set_image("edit", THEME."images/icons/news_edit.png");
@@ -161,7 +161,7 @@ if (!isset($_GET['readmore']) && $info['news_ext'] == "y") {
 
 }
 
-function render_article($subject, $article, $info) {
+function render_article(string $subject,string $article,array $info) {
 global $locale, $settings, $aidlink;
 
 set_image("edit", THEME."images/icons/article_edit.png");
@@ -193,7 +193,7 @@ if ($info['article_allow_comments'] && $settings['comments_enabled'] == "1") {
 
 }
 
-function opentable($title) {
+function opentable(string $title) {
 
 	echo "<div class='capmain-top'></div>\n";
 	echo "<div class='capmain'>".$title."</div>\n";
@@ -208,7 +208,7 @@ function closetable() {
 
 }
 
-function openside($title, $collapse = false, $state = "on") {
+function openside(string $title, $collapse = false, $state = "on") {
 
 	global $panel_collapse; $panel_collapse = $collapse;
 
@@ -234,5 +234,3 @@ function closeside() {
 	echo "</div>\n";
 
 }
-
-?>

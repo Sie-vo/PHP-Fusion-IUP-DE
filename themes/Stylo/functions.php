@@ -15,7 +15,7 @@ set_image("pm", "pm");
 set_image("quote", "quote");
 set_image("forum_edit", "forum_edit");
 
-function theme_output($output) {
+function theme_output(string $output) {
 
 	$search = array(
 		"@><img src='reply' alt='(.*?)' style='border:0px' />@si",
@@ -39,4 +39,3 @@ function theme_output($output) {
 
 	return $output;
 }
-?>

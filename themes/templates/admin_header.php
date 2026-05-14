@@ -16,7 +16,11 @@
 | written permission from the original author(s).
 +--------------------------------------------------------*/
 if (!defined("IN_FUSION")) { die("Access Denied"); }
-
+/**
+ * @var array  $settings
+ * @var array $locale
+ * @var array $userdata
+ */
 define("ADMIN_PANEL", true);
 
 require_once INCLUDES."output_handling_include.php";
@@ -41,4 +45,3 @@ echo "</head>\n<body>\n";
 require_once THEMES."templates/panels.php";
 
 ob_start();
-?>

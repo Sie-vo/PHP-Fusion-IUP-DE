@@ -49,4 +49,3 @@ echo "</head>\n<body>\n";
 
 require_once THEMES."templates/panels.php";
 ob_start();
-?>
