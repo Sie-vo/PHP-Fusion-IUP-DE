@@ -17,7 +17,7 @@
 +--------------------------------------------------------*/
 if (!defined("IN_FUSION")) { die("Access Denied"); }
 
-function createthumbnail($filetype, $origfile, $thumbfile, $new_w, $new_h) {
+function createthumbnail(string $filetype,string $origfile,string $thumbfile,mixed $new_w,mixed $new_h) {
 
 	global $settings;
 
@@ -55,12 +55,12 @@ function createthumbnail($filetype, $origfile, $thumbfile, $new_w, $new_h) {
 	if ($filetype == 1) { imagegif($thumbimage, $thumbfile); }
 	elseif ($filetype == 2) { imagejpeg($thumbimage, $thumbfile); }
 	elseif ($filetype == 3) { imagepng($thumbimage, $thumbfile); }
-
-	imagedestroy($origimage);
-	imagedestroy($thumbimage);
+	// we don't need it
+	//imagedestroy($origimage);
+	//imagedestroy($thumbimage);
 }
 
-function createsquarethumbnail($filetype, $origfile, $thumbfile, $new_size) {
+function createsquarethumbnail(string $filetype,string $origfile,string $thumbfile,mixed $new_size) {
 	global $settings;
 	if ($filetype == 1) { $origimage = imagecreatefromgif($origfile); }
 	elseif ($filetype == 2) { $origimage = imagecreatefromjpeg($origfile); }
@@ -85,15 +85,15 @@ function createsquarethumbnail($filetype, $origfile, $thumbfile, $new_size) {
 	}
 	imagecopyresampled($new_image,$origimage,0,0,$x,$y,$new_size,$new_size,$old_x,$old_y);
 
-	if ($filetype == 1) { imagegif($new_image,$thumbfile,100); }
+	if ($filetype == 1) { imagegif($new_image,$thumbfile); }
 	elseif ($filetype == 2) { imagejpeg($new_image,$thumbfile,100); }
 	elseif ($filetype == 3) { imagepng($new_image,$thumbfile,5); }
 
-	imagedestroy($origimage);
-	imagedestroy($new_image);
+	//imagedestroy($origimage);
+	//imagedestroy($new_image);
 }
 
-function image_exists($dir, $image) {
+function image_exists(string $dir,string $image) {
 	$i = 1;
 	$image_name = substr($image, 0, strrpos($image, "."));
 	$image_ext = strrchr($image, ".");
@@ -103,4 +103,3 @@ function image_exists($dir, $image) {
 	}
 	return $image;
 }
-?>

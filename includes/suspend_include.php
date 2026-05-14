@@ -16,6 +16,9 @@
 | written permission from the original author(s).
 +--------------------------------------------------------*/
 if (!defined("IN_FUSION")) { die("Access Denied"); }
+/**
+ * @var array $settings
+ */
 
 include LOCALE.LOCALESET."admin/members_include.php";
 
@@ -37,7 +40,7 @@ $steps_arr = array(
 	"view"
 );
 
-function getsuspension($type, $action = false) {
+function getsuspension(mixed $type, $action = false) {
 	global $locale;
 	
 	$i = ($action ? 1 : 0);
@@ -54,7 +57,7 @@ function getsuspension($type, $action = false) {
 	} else { return $locale['susp_sys']; }
 }
 
-function suspend_log($user_id, $type, $reason = "", $system = false, $time = true) {
+function suspend_log(mixed $user_id,mixed $type, $reason = "", $system = false, $time = true) {
 	global $userdata;
 	
 	$result = dbquery(
@@ -78,7 +81,7 @@ function suspend_log($user_id, $type, $reason = "", $system = false, $time = tru
 	);
 }
 
-function unsuspend_log($user_id, $type, $reason = "", $system = false) {
+function unsuspend_log(mixed $user_id,mixed $type, $reason = "", $system = false) {
 	global $userdata;
 	
 	// Pre v7.01 check
@@ -100,7 +103,7 @@ function unsuspend_log($user_id, $type, $reason = "", $system = false) {
 	);
 }
 
-function display_suspend_log($user_id, $type = "all", $rowstart = 0, $limit = 0) {
+function display_suspend_log(mixed $user_id, $type = "all", $rowstart = 0, $limit = 0) {
 	global $locale;
 	
 	$db_type = ($type != "all" && isnum($type) ? " AND suspend_type='$type'" : "");
@@ -127,6 +130,7 @@ function display_suspend_log($user_id, $type = "all", $rowstart = 0, $limit = 0)
 	}
 	if ($rows) {
 		echo "<table width='80%' cellpadding='1' cellspacing='0' class='tbl-border center'>\n<tr>\n";
+		// Whats that? $description wird nie verwendet.
 		if ($type == "all") {
 			$description = sprintf($locale['susp101'], $udata['user_name']);
 		} else {
@@ -186,10 +190,8 @@ function member_nav($second = "", $third = "") {
 	echo "<div style='margin:5px'></div>\n";
 }
 
-function member_url($step, $user_id) {
+function member_url(mixed $step,mixed $user_id) {
 	global $aidlink;
 	
 	return FUSION_SELF.$aidlink."&amp;step=".$step.($user_id ? "&amp;user_id=$user_id" : "");
 }
-
-?>

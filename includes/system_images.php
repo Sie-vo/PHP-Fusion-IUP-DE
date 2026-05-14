@@ -109,7 +109,7 @@ $fusion_images = array(
 
 $fusion_images = array_merge($ac_images, $fusion_images, $nc_images, $smiley_images);
 
-function get_image($image, $alt = "", $style = "", $title = "", $atts = "") {
+function get_image(string $image, $alt = "", $style = "", $title = "", $atts = "") {
 	global $fusion_images;
 	if (isset($fusion_images[$image])) {
 		$url = $fusion_images[$image];
@@ -123,12 +123,12 @@ function get_image($image, $alt = "", $style = "", $title = "", $atts = "") {
 	}
 }
 
-function set_image($name, $new_dir) {
+function set_image(string $name,string $new_dir) {
 	global $fusion_images;
 	$fusion_images[$name] = $new_dir;
 }
 
-function redirect_img_dir($source, $target) {
+function redirect_img_dir(string $source,string $target) {
 	global $fusion_images;
 	$new_images = array();
 	foreach ($fusion_images as $name => $url) {
@@ -136,4 +136,3 @@ function redirect_img_dir($source, $target) {
 	}
 	$fusion_images = $new_images;
 }
-?>

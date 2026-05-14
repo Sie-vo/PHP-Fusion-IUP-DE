@@ -17,7 +17,7 @@
 +--------------------------------------------------------*/
 if (!defined("IN_FUSION")) { die("Access Denied"); }
 
-function check_panel_status($side) {
+function check_panel_status(mixed $side) {
 
 	global $settings;
 
@@ -118,7 +118,7 @@ function showsubdate() {
 	return ucwords(showdate($settings['subheaderdate'], time()));
 }
 
-function newsposter($info, $sep = "", $class = "") {
+function newsposter(array $info, $sep = "", $class = "") {
 	global $locale; $res = "";
 	$link_class = $class ? " class='$class' " : "";
 	$res = THEME_BULLET." <span ".$link_class.">".profile_link($info['user_id'], $info['user_name'], $info['user_status'])."</span> ";
@@ -127,7 +127,7 @@ function newsposter($info, $sep = "", $class = "") {
 	return "<!--news_poster-->".$res;
 }
 
-function newsopts($info, $sep, $class = "") {
+function newsopts(array $info,mixed $sep, $class = "") {
 	global $locale, $settings; $res = "";
 	$link_class = $class ? " class='$class' " : "";
 	if (!isset($_GET['readmore']) && $info['news_ext'] == "y") $res = "<a href='news.php?readmore=".$info['news_id']."'".$link_class.">".$locale['global_072']."</a> ".$sep." ";
@@ -137,7 +137,7 @@ function newsopts($info, $sep, $class = "") {
 	return "<!--news_opts-->".$res;
 }
 
-function newscat($info, $sep = "", $class = "") {
+function newscat(array $info, $sep = "", $class = "") {
 	global $locale; $res = "";
 	$link_class = $class ? " class='$class' " : "";
 	$res .= $locale['global_079'];
@@ -149,7 +149,7 @@ function newscat($info, $sep = "", $class = "") {
 	return "<!--news_cat-->".$res." $sep ";
 }
 
-function articleposter($info, $sep = "", $class = "") {
+function articleposter(array $info, $sep = "", $class = "") {
 	global $locale, $settings; $res = "";
 	$link_class = $class ? " class='$class' " : "";
 	$res = THEME_BULLET." ".$locale['global_070']."<span ".$link_class.">".profile_link($info['user_id'], $info['user_name'], $info['user_status'])."</span>\n";
@@ -158,7 +158,7 @@ function articleposter($info, $sep = "", $class = "") {
 	return "<!--article_poster-->".$res;
 }
 
-function articleopts($info, $sep) {
+function articleopts(array $info, $sep) {
 	global $locale, $settings; $res = "";
 	if ($info['article_allow_comments'] && $settings['comments_enabled'] == "1") { $res = "<a href='articles.php?article_id=".$info['article_id']."#comments'>".$info['article_comments'].($info['article_comments'] == 1 ? $locale['global_073b'] : $locale['global_073'])."</a> ".$sep."\n"; }
 	$res .= $info['article_reads'].$locale['global_074']." ".$sep."\n";
@@ -166,7 +166,7 @@ function articleopts($info, $sep) {
 	return "<!--article_opts-->".$res;
 }
 
-function articlecat($info, $sep = "", $class = "") {
+function articlecat(array $info, $sep = "", $class = "") {
 	global $locale; $res = "";
 	$link_class = $class ? " class='$class' " : "";
 	$res .= $locale['global_079'];
@@ -178,7 +178,7 @@ function articlecat($info, $sep = "", $class = "") {
 	return "<!--article_cat-->".$res." $sep ";
 }
 
-function itemoptions($item_type, $item_id) {
+function itemoptions(mixed $item_type,mixed $item_id) {
 	global $locale, $aidlink; $res = "";
 	if ($item_type == "N") {
 		if (iADMIN && checkrights($item_type)) { $res .= "<!--article_news_opts--> &middot; <a href='".ADMIN."news.php".$aidlink."&amp;action=edit&amp;news_id=".$item_id."'><img src='".get_image("edit")."' alt='".$locale['global_076']."' title='".$locale['global_076']."' style='vertical-align:middle;border:0;' /></a>\n"; }
@@ -217,7 +217,7 @@ function showcounter() {
 	}
 }
 
-function panelbutton($state, $bname) {
+function panelbutton(mixed $state,string $bname) {
 	$bname = preg_replace("/[^a-zA-Z0-9\s]/", "_", $bname);
 	if (isset($_COOKIE["fusion_box_".$bname])) {
 		if ($_COOKIE["fusion_box_".$bname] == "none") {
@@ -229,7 +229,7 @@ function panelbutton($state, $bname) {
 	return "<img src='".get_image("panel_".($state == "on" ? "off" : "on"))."' id='b_".$bname."' class='panelbutton' alt='' onclick=\"javascript:flipBox('".$bname."')\" />";
 }
 
-function panelstate($state, $bname) {
+function panelstate(mixed $state,string $bname) {
 	$bname = preg_replace("/[^a-zA-Z0-9\s]/", "_", $bname);
 	if (isset($_COOKIE["fusion_box_".$bname])) {
 		if ($_COOKIE["fusion_box_".$bname] == "none") {
@@ -242,7 +242,7 @@ function panelstate($state, $bname) {
 }
 
 // v6 compatibility
-function opensidex($title, $state = "on") {
+function opensidex(string $title, $state = "on") {
 
 	openside($title, true, $state);
 
@@ -257,4 +257,3 @@ function closesidex() {
 function tablebreak() {
 	return true;
 }
-?>

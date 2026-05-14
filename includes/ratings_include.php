@@ -19,7 +19,7 @@ if (!defined("IN_FUSION")) { die("Access Denied"); }
 
 include LOCALE.LOCALESET."ratings.php";
 
-function showratings($rating_type, $rating_item_id, $rating_link) {
+function showratings(string $rating_type,mixed $rating_item_id,string $rating_link) {
 
 	global $settings, $locale, $userdata;
 	
@@ -88,4 +88,3 @@ function showratings($rating_type, $rating_item_id, $rating_link) {
 		closetable();
 	}
 }
-?>
