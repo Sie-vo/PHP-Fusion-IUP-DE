@@ -16,7 +16,9 @@
 | written permission from the original author(s).
 +--------------------------------------------------------*/
 if (!defined("IN_FUSION")) { die("Access Denied"); }
-
+/**
+ * @var array $locale
+ */
 openside($locale['global_032']);
 $result = dbquery(
 		"SELECT td.download_id, td.download_title, td.download_cat, td.download_datestamp,
@@ -34,4 +36,3 @@ if (dbrows($result)) {
 	echo "<div style='text-align:center'>".$locale['global_033']."</div>\n";
 }
 closeside();
-?>

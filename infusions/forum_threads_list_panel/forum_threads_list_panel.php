@@ -16,7 +16,11 @@
 | written permission from the original author(s).
 +--------------------------------------------------------*/
 if (!defined("IN_FUSION")) { die("Access Denied"); }
-
+/**
+ * @var array  $settings
+ * @var array $locale
+ * @var array $userdata
+ */
 global $lastvisited;
 
 if (!isset($lastvisited) || !isnum($lastvisited)) { $lastvisited = time(); }
@@ -90,4 +94,4 @@ if (dbrows($result)) {
 	}
 	closetable();
 }
-?>
+

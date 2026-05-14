@@ -16,7 +16,9 @@
 | written permission from the original author(s).
 +--------------------------------------------------------*/
 if (!defined("IN_FUSION")) { die("Access Denied"); }
-
+/**
+ * @var array $locale
+ */
 $list_open = false;
 
 openside($locale['global_001']);
@@ -59,4 +61,3 @@ if (dbrows($result)) {
 	echo $locale['global_002'];
 }
 closeside();
-?>

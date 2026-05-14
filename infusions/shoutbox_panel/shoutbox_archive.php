@@ -15,6 +15,11 @@
 | copyright header is strictly prohibited without
 | written permission from the original author(s).
 +--------------------------------------------------------*/
+/**
+ * @var array  $settings
+ * @var array $locale
+ * @var array $userdata
+ */
 require_once "../../maincore.php";
 require_once THEMES."templates/header.php";
 
@@ -51,7 +56,7 @@ if (iMEMBER && (isset($_GET['action']) && $_GET['action'] == "delete") && (isset
 	redirect(FUSION_SELF);
 }
 
-function sbawrap($text) {
+function sbawrap(string $text) {
 	global $locale;
 
 	$i = 0; $tags = 0; $chars = 0; $res = "";
@@ -107,7 +112,7 @@ if (iMEMBER || $shout_settings['guest_shouts'] == "1") {
 			if (isnum($archive_shout_name)) { $archive_shout_name = ""; }
 			include_once INCLUDES."captchas/securimage/securimage.php";
 			$securimage = new Securimage();
-			if (!isset($_POST['captcha_code']) || $securimage->check($_POST['captcha_code']) == false) { redirect($link); }
+			if (!isset($_POST['captcha_code']) || $securimage->check($_POST['captcha_code']) == false) { redirect(FUSION_SELF); }
 		}
 		$archive_shout_message = str_replace("\n", " ", $_POST['archive_shout_message']);
 		$archive_shout_message = preg_replace("/^(.{255}).*$/", "$1", $archive_shout_message);
@@ -207,4 +212,3 @@ closetable();
 echo "<div align='center' style='margin-top:5px;'>\n".makepagenav($_GET['rowstart'], 20, $rows, 3, FUSION_SELF."?")."\n</div>\n";
 
 require_once THEMES."templates/footer.php";
-?>

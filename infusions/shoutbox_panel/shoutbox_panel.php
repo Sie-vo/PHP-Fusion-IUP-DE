@@ -16,7 +16,11 @@
 | written permission from the original author(s).
 +--------------------------------------------------------*/
 if (!defined("IN_FUSION")) { die("Access Denied"); }
-
+/**
+ * @var array  $settings
+ * @var array $locale
+ * @var array $userdata
+ */
 include_once INFUSIONS."shoutbox_panel/infusion_db.php";
 include_once INCLUDES."infusions_include.php";
 
@@ -44,7 +48,7 @@ if (iMEMBER && (isset($_GET['s_action']) && $_GET['s_action'] == "delete") && (i
 }
 
 if (!function_exists("sbwrap")) {
-	function sbwrap($text) {
+	function sbwrap(string $text) {
 		global $locale;
 
 		$i = 0; $tags = 0; $chars = 0; $res = "";
@@ -202,4 +206,3 @@ if (dbrows($result)) {
 	echo "<div>".$locale['SB_no_msgs']."</div>\n";
 }
 closeside();
-?>

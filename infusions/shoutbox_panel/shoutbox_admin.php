@@ -15,6 +15,11 @@
 | copyright header is strictly prohibited without
 | written permission from the original author(s).
 +--------------------------------------------------------*/
+/**
+ * @var array  $settings
+ * @var array $locale
+ * @var string $aidlink
+ */
 require_once "../../maincore.php";
 require_once THEMES."templates/admin_header.php";
 

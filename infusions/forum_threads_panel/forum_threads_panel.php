@@ -16,7 +16,10 @@
 | written permission from the original author(s).
 +--------------------------------------------------------*/
 if (!defined("IN_FUSION")) { die("Access Denied"); }
-
+/**
+ * @var array  $settings
+ * @var array $locale
+ */
 openside($locale['global_020']);
 echo "<div class='side-label'><strong>".$locale['global_021']."</strong></div>\n";
 $result = dbquery("
@@ -58,4 +61,3 @@ if (dbrows($result) != 0) {
 	echo "<div style='text-align:center'>".$locale['global_023']."</div>\n";
 }
 closeside();
-?>

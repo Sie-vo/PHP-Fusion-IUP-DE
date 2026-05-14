@@ -16,7 +16,10 @@
 | written permission from the original author(s).
 +--------------------------------------------------------*/
 if (!defined("IN_FUSION")) { die("Access Denied"); }
-
+/**
+ * @var array $locale
+ * @var array $userdata
+ */
 if (iMEMBER && isset($_POST['cast_vote']) && 
 	(isset($_POST['poll_id']) && isnum($_POST['poll_id'])) && 
 		(isset($_POST['voteoption']) && isnum($_POST['voteoption']))) { // bug #1010
@@ -91,4 +94,3 @@ if (dbrows($result)) {
 	echo "<div style='text-align:center'>".$locale['global_142']."</div>\n";
 }
 closeside();
-?>

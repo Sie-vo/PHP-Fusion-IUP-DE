@@ -16,7 +16,9 @@
 | written permission from the original author(s).
 +--------------------------------------------------------*/
 if (!defined("IN_FUSION")) { die("Access Denied"); }
-
+/**
+ * @var array $locale
+ */
 openside($locale['global_030']);
 $result = dbquery(
 	"SELECT ta.article_id, ta.article_subject, tac.article_cat_id, tac.article_cat_access FROM ".DB_ARTICLES." ta
@@ -32,4 +34,3 @@ if (dbrows($result)) {
 	echo "<div style='text-align:center'>".$locale['global_031']."</div>\n";
 }
 closeside();
-?>

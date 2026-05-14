@@ -158,7 +158,7 @@ function articleposter(array $info, $sep = "", $class = "") {
 	return "<!--article_poster-->".$res;
 }
 
-function articleopts(array $info, $sep) {
+function articleopts(array $info,mixed $sep) {
 	global $locale, $settings; $res = "";
 	if ($info['article_allow_comments'] && $settings['comments_enabled'] == "1") { $res = "<a href='articles.php?article_id=".$info['article_id']."#comments'>".$info['article_comments'].($info['article_comments'] == 1 ? $locale['global_073b'] : $locale['global_073'])."</a> ".$sep."\n"; }
 	$res .= $info['article_reads'].$locale['global_074']." ".$sep."\n";

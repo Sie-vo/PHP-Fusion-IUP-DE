@@ -15,6 +15,9 @@
 | copyright header is strictly prohibited without
 | written permission from the original author(s).
 +--------------------------------------------------------*/
+/**
+ * @var array $locale
+ */
 require_once "../../maincore.php";
 require_once THEMES."templates/header.php";
 
@@ -70,4 +73,3 @@ closetable();
 if ($threads > 20) { echo "<div align='center' style='margin-top:5px;'>\n".makepagenav($_GET['rowstart'], 20, $threads, 3)."\n</div>\n"; }
 
 require_once THEMES."templates/footer.php";
-?>

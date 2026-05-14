@@ -16,7 +16,10 @@
 | written permission from the original author(s).
 +--------------------------------------------------------*/
 if (!defined("IN_FUSION")) { die("Access Denied"); }
-
+/**
+ * @var array  $settings
+ * @var array $locale
+ */
 include INFUSIONS."shoutbox_panel/infusion_db.php";
 
 // Check if locale file is available matching the current site locale setting.
@@ -66,4 +69,3 @@ $inf_adminpanel[1] = array(
 	"panel" => "shoutbox_admin.php",
 	"rights" => "S"
 );
-?>

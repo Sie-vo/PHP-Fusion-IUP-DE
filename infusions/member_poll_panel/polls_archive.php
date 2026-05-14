@@ -15,6 +15,9 @@
 | copyright header is strictly prohibited without
 | written permission from the original author(s).
 +--------------------------------------------------------*/
+/**
+ * @var array $locale
+ */
 require_once "../../maincore.php";
 require_once THEMES."templates/header.php";
 
@@ -88,4 +91,3 @@ if (isset($_POST['view']) && (isset($_POST['viewpoll_id']) && isnum($_POST['view
 }
 
 require_once THEMES."templates/footer.php";
-?>

@@ -17,7 +17,10 @@
 +--------------------------------------------------------*/
 
 if (!defined("IN_FUSION")) { die("Access Denied"); }
-
+/**
+ * @var array  $settings
+ * @var array $locale
+ */
 $displayComments = 10;
 
 openside($locale['global_025']);
@@ -129,4 +132,3 @@ if (dbrows($result)) {
 	echo "<div style='text-align:center'>".$locale['global_026']."</div>\n";
 }
 closeside();
-?>

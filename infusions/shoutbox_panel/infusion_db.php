@@ -1,7 +1,7 @@
 <?php
 /*-------------------------------------------------------+
 | PHP-Fusion Content Management System
-| Copyright © 2002 - 2011 Nick Jones
+| Copyright ï¿½ 2002 - 2011 Nick Jones
 | http://www.php-fusion.co.uk/
 +--------------------------------------------------------+
 | Filename: infusion_db.php
@@ -20,4 +20,3 @@ if (!defined("IN_FUSION")) { die("Access Denied"); }
 if (!defined("DB_SHOUTBOX")) {
 	define("DB_SHOUTBOX", DB_PREFIX."shoutbox");
 }
-?>

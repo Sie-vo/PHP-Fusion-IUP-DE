@@ -15,6 +15,10 @@
 | copyright header is strictly prohibited without
 | written permission from the original author(s).
 +--------------------------------------------------------*/
+/**
+ * @var array $locale
+ * @var array $userdata
+ */
 require_once "../../maincore.php";
 require_once THEMES."templates/header.php";
 
@@ -67,4 +71,3 @@ if ($rows) {
 }
 
 require_once THEMES."templates/footer.php";
-?>
