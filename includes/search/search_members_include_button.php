@@ -15,6 +15,8 @@
 | copyright header is strictly prohibited without
 | written permission from the original author(s).
 +--------------------------------------------------------*/
+/** @var array $locale 
+*/
 if (!defined("IN_FUSION")) { die("Access Denied"); }
 
 include LOCALE.LOCALESET."search/members.php";
@@ -25,4 +27,3 @@ $form_elements['members']['display'] = array();
 $form_elements['members']['nodisplay'] = array();
 
 $radio_button['members'] = "<label><input type='radio' name='stype' value='members'".($_GET['stype'] == "members" ? " checked='checked'" : "")." onclick=\"display(this.value)\" /> ".$locale['m400']."</label>";
-?>

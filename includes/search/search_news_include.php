@@ -15,6 +15,10 @@
 | copyright header is strictly prohibited without
 | written permission from the original author(s).
 +--------------------------------------------------------*/
+/** @var array $locale
+ *  @var array $settings 
+ *  @var string $composevars 
+*/
 if (!defined("IN_FUSION")) { die("Access Denied"); }
 
 include LOCALE.LOCALESET."search/news.php";
@@ -31,11 +35,15 @@ if ($_GET['stype'] == "news" || $_GET['stype'] == "all") {
 	$smessage = search_querylike("news_news");
 	$sextended = search_querylike("news_extended");
 	if ($_GET['fields'] == 0) {
-		$fieldsvar = search_fieldsvar($ssubject);
+		// ? function search_fieldsvar has no arguments
+		//$fieldsvar = search_fieldsvar($ssubject);
+		$fieldsvar = search_fieldsvar();
 	} else if ($_GET['fields'] == 1) {
-		$fieldsvar = search_fieldsvar($smessage, $sextended);
+		//$fieldsvar = search_fieldsvar($smessage, $ssnippet);
+		$fieldsvar = search_fieldsvar();
 	} else if ($_GET['fields'] == 2) {
-		$fieldsvar = search_fieldsvar($ssubject, $smessage, $sextended);
+		//$fieldsvar = search_fieldsvar($ssubject, $ssnippet, $smessage);
+		$fieldsvar = search_fieldsvar();
 	} else {
 		$fieldsvar = "";
 	}

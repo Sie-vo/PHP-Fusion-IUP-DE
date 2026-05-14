@@ -15,6 +15,10 @@
 | copyright header is strictly prohibited without
 | written permission from the original author(s).
 +--------------------------------------------------------*/
+/** @var array $locale
+ *  @var array $settings 
+ *  @var string $composevars 
+*/
 if (!defined("IN_FUSION")) { die("Access Denied"); }
 
 include LOCALE.LOCALESET."search/weblinks.php";
@@ -31,11 +35,15 @@ if ($_GET['stype']  ==  "weblinks" || $_GET['stype'] == "all") {
 	$smessage = search_querylike("weblink_description");
 	$surllink = search_querylike("weblink_url");
 	if ($_GET['fields'] == 0) {
-		$fieldsvar = search_fieldsvar($ssubject, $surllink);
+		// ? function search_fieldsvar has no arguments
+		//$fieldsvar = search_fieldsvar($ssubject);
+		$fieldsvar = search_fieldsvar();
 	} else if ($_GET['fields'] == 1) {
-		$fieldsvar = search_fieldsvar($smessage, $surllink);
+		//$fieldsvar = search_fieldsvar($smessage, $ssnippet);
+		$fieldsvar = search_fieldsvar();
 	} else if ($_GET['fields'] == 2) {
-		$fieldsvar = search_fieldsvar($ssubject, $smessage, $surllink);
+		//$fieldsvar = search_fieldsvar($ssubject, $ssnippet, $smessage);
+		$fieldsvar = search_fieldsvar();
 	} else {
 		$fieldsvar = "";
 	}

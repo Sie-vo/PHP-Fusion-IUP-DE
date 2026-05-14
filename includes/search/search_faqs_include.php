@@ -15,6 +15,9 @@
 | copyright header is strictly prohibited without
 | written permission from the original author(s).
 +--------------------------------------------------------*/
+/** @var array $locale 
+ *  @var string $composevars 
+*/
 if (!defined("IN_FUSION")) { die("Access Denied"); }
 
 include LOCALE.LOCALESET."search/faqs.php";
@@ -24,14 +27,19 @@ if ($_GET['stype'] == "faqs" || $_GET['stype'] == "all") {
 	$ssubject = search_querylike("faq_question");
 	$smessage = search_querylike("faq_answer");
 	if ($_GET['fields'] == 0) {
-		$fieldsvar = search_fieldsvar($ssubject);
+		// ? function search_fieldsvar has no arguments
+		//$fieldsvar = search_fieldsvar($ssubject);
+		$fieldsvar = search_fieldsvar();
 	} else if ($_GET['fields'] == 1) {
-		$fieldsvar = search_fieldsvar($smessage);
+		//$fieldsvar = search_fieldsvar($smessage, $ssnippet);
+		$fieldsvar = search_fieldsvar();
 	} else if ($_GET['fields'] == 2) {
-		$fieldsvar = search_fieldsvar($ssubject, $smessage);
+		//$fieldsvar = search_fieldsvar($ssubject, $ssnippet, $smessage);
+		$fieldsvar = search_fieldsvar();
 	} else {
 		$fieldsvar = "";
 	}
+	$result = '';
 	if ($fieldsvar) {
 		$result = dbquery(
 			"SELECT fq.*, fc.* FROM ".DB_FAQS." fq

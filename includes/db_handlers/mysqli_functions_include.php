@@ -15,6 +15,7 @@
 | copyright header is strictly prohibited without
 | written permission from the original author(s).
 +--------------------------------------------------------*/
+/** @todo type informations für die Variablen hinzufügen. Ich persönlich unterstütze kein mysqli. Also wer braucht kann sich hier austoben */
 if (!defined("IN_FUSION")) {
 	die("Access Denied");
 }

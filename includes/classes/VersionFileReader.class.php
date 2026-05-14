@@ -21,7 +21,7 @@ class VersionFileReader {
 
 	private $_currentVersion 						= false;
 	private $_newestVersion 						= false;
-	private $_versionURL;
+	private string $_versionURL;
 	
 	private $_errorNumber 							= 0;
 	private $_errorMessage 							= "OK";
@@ -51,7 +51,7 @@ class VersionFileReader {
 	}
 	
 	// Set json compability mode
-	public function setCompabilityMode($compabilityMode) {
+	public function setCompabilityMode(bool $compabilityMode) {
 		if ($compabilityMode) {
 			$this->_jsonCompabilityMode = true;
 		} else {
@@ -60,14 +60,14 @@ class VersionFileReader {
 	}
 	
 	// Set json version server
-	public function setJsonVersionServer($jsonVersionServer) {
+	public function setJsonVersionServer(mixed $jsonVersionServer) {
 		if ($jsonVersionServer != "") {
 			$this->_jsonVersionServer = $jsonVersionServer;
 		}
 	}
 	
 	// Set json first object
-	public function setJsonFirstObject($jsonFirstObject) {
+	public function setJsonFirstObject(mixed $jsonFirstObject) {
 		if ($jsonFirstObject != "") {
 			$this->_jsonFirstObject = $jsonFirstObject;
 		}
@@ -96,7 +96,7 @@ class VersionFileReader {
 	}
 
 	// Jeson object to array
-	private function _getJsonArray($content) {
+	private function _getJsonArray(mixed $content) {
 		global $settings;
 		
 		// Make JSON object
@@ -126,7 +126,7 @@ class VersionFileReader {
 	}
 	
 	// Get severity from number
-	public static function getSeverity($severity) {
+	public static function getSeverity(string $severity) {
 		$severities = array(
 			1 => "High",
 			2 => "Medium",
@@ -139,4 +139,3 @@ class VersionFileReader {
 		}
 	}
 }
-?>

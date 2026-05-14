@@ -15,6 +15,7 @@
 | copyright header is strictly prohibited without
 | written permission from the original author(s).
 +--------------------------------------------------------*/
+/** @var array $locale */
 if (!defined("IN_FUSION")) { die("Access Denied"); }
 
 include LOCALE.LOCALESET."search/custompages.php";
@@ -25,4 +26,3 @@ $form_elements['custompages']['display'] = array();
 $form_elements['custompages']['nodisplay'] = array();
 
 $radio_button['custompages'] = "<label><input type='radio' name='stype' value='custompages'".($_GET['stype'] == "custompages" ? " checked='checked'" : "")." onclick=\"display(this.value)\" /> ".$locale['c400']."</label>";
-?>

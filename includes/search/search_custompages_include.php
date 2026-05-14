@@ -15,6 +15,9 @@
 | copyright header is strictly prohibited without
 | written permission from the original author(s).
 +--------------------------------------------------------*/
+/** @var array $locale 
+ *  @var string $composevars 
+*/
 if (!defined("IN_FUSION")) { die("Access Denied"); }
 
 include LOCALE.LOCALESET."search/custompages.php";
@@ -24,11 +27,15 @@ if ($_GET['stype'] == "custompages" || $_GET['stype'] == "all") {
 	$ssubject = search_querylike("page_title");
 	$smessage = search_querylike("page_content");
 	if ($_GET['fields'] == 0) {
-		$fieldsvar = search_fieldsvar($ssubject);
+		// ? function search_fieldsvar has no arguments
+		//$fieldsvar = search_fieldsvar($ssubject);
+		$fieldsvar = search_fieldsvar();
 	} else if ($_GET['fields'] == 1) {
-		$fieldsvar = search_fieldsvar($smessage);
+		//$fieldsvar = search_fieldsvar($smessage, $ssnippet);
+		$fieldsvar = search_fieldsvar();
 	} else if ($_GET['fields'] == 2) {
-		$fieldsvar = search_fieldsvar($ssubject, $smessage);
+		//$fieldsvar = search_fieldsvar($ssubject, $ssnippet, $smessage);
+		$fieldsvar = search_fieldsvar();
 	} else {
 		$fieldsvar = "";
 	}

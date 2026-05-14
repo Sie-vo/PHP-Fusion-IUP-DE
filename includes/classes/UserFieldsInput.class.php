@@ -24,21 +24,21 @@ class UserFieldsInput {
 	public $emailVerification 				= 1;
 	public $isAdminPanel 					= false;
 	public $verifyNewEmail					= false;
-	public $userData;
+	public $userData                        = [];
 	public $validation 						= 0;
 	public $registration					= false;
 
 	// On insert or admin edit
 	public $skipCurrentPass					= false;
 
-	private $_completeMessage;
-	private $_errorMessages 				= array();
-	private $_fieldsRequired 				= array();
-	private $_method;
+	private string $_completeMessage;
+	private $_errorMessages 				= [];
+	private $_fieldsRequired 				= [];
+	private mixed $_method;
 	private $_noErrors 						= true;
-	private $_userEmail;
-	private $_userHideEmail;
-	private $_userName;
+	private mixed $_userEmail;
+	private mixed $_userHideEmail;
+	private mixed $_userName;
 
 	// Passwords
 	private $_isValidCurrentPassword		= false;
@@ -58,12 +58,12 @@ class UserFieldsInput {
 	private $_newUserAdminPassword2 		= false;
 
 	// Database inputs
-	private $_dbFields;
-	private $_dbValues;
+	private string $_dbFields;
+	private string $_dbValues;
 
 	// User Log System
-	private $_userLogData					= array();
-	private $_userLogFields					= array();
+	private $_userLogData					= [];
+	private $_userLogFields					= [];
 
 	// Settings
 	private $_userNameChange				= true;
@@ -144,11 +144,11 @@ class UserFieldsInput {
 		closetable();
 	}
 
-	public function setUserNameChange($value) {
+	public function setUserNameChange(string $value) {
 		$this->_userNameChange = $value;
 	}
 
-	public function verifyCode($value) {
+	public function verifyCode(string $value) {
 		global $locale, $userdata;
 		if (!preg_check("/^[0-9a-z]{32}$/i", $value)) redirect("index.php");
 		$result = dbquery("SELECT * FROM ".DB_EMAIL_VERIFY." WHERE user_code='".$value."'");
@@ -201,6 +201,7 @@ class UserFieldsInput {
 	}
 
 	private function _isValidCurrentPassword($loginPass = true, $skipCurrentPass = false) {
+		$password = '';
 		if ($loginPass && !$skipCurrentPass) {
 			$this->_userHash 							= $this->_getPasswordInput("user_hash");
 			$this->_userPassword 						= $this->_getPasswordInput("user_password");
@@ -530,7 +531,7 @@ class UserFieldsInput {
 		}
 	}
 
-	private function _setDBValue($field, $value) {
+	private function _setDBValue(string $field,string $value) {
 		if ($this->_method == "validate_insert") {
 			$this->_dbFields .= ($this->_dbFields != "" ? ", " : "").$field;
 			$this->_dbValues .= ($this->_dbValues != "" ? ", " : "")."'".$value."'";
@@ -542,14 +543,14 @@ class UserFieldsInput {
 		}
 	}
 
-	private function _setError($field, $message, $empty = false) {
+	private function _setError(string $field,string $message, $empty = false) {
 		if (!$empty || (isset($this->_fieldsRequired[$field]) && $this->_fieldsRequired[$field] == true)) {
 			$this->_noErrors = false;
 			$this->_errorMessages[$field] = $message;
 		}
 	}
 
-	private function _isNotRequired($field) {
+	private function _isNotRequired(string $field) {
 		if (isset($this->_fieldsRequired[$field])) {
 			return false;
 		} else {
@@ -558,7 +559,7 @@ class UserFieldsInput {
 	}
 
 	// Get Password Input - if empty return false
-	private function _getPasswordInput($field) {
+	private function _getPasswordInput(string $field) {
 		return isset($_POST[$field]) && $_POST[$field] != "" ? $_POST[$field] : false;
 	}
 
@@ -653,4 +654,3 @@ class UserFieldsInput {
         	if ($sql != "") { $result = dbquery($sql); }
 	}
 }
-?>

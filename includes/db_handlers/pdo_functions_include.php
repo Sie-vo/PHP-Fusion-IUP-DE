@@ -56,7 +56,7 @@ if (!defined("IN_FUSION")) { die("Access Denied"); }
  * @global int   $mysql_queries_count
  * @global array $mysql_queries_time
  * @param string $query SQL
- * @return \PDOStatement or FALSE on error
+ * @ return \PDOStatement or FALSE on error . Wir können das return nicht setzen!
  */
 function dbquery($query, $print = FALSE) {
 	global $mysql_queries_count, $mysql_queries_time;
@@ -67,10 +67,11 @@ function dbquery($query, $print = FALSE) {
 		$result->execute();
 		$query_time = substr((get_microtime() - $query_time), 0, 7);
         $mysql_queries_time[$mysql_queries_count] = [$query_time, $query];
+        db_last_statement($result);
 		if ($print == 1) var_dump($query);
 		return $result;
 	} catch (PDOException $e) {
-		trigger_error($e->getMessage(), E_USER_ERROR);
+		trigger_error("Query Error: ".$query."\nError: ".$e->getMessage(), E_USER_WARNING);
 		if ($print == 1) var_dump($query);
 		echo $e;
 		return FALSE;
@@ -94,7 +95,7 @@ function dbcount($field, $table, $conditions = "") {
 		$statement->execute();
 		return $statement->fetchColumn();
 	} catch (PDOException $e) {
-		trigger_error($e->getMessage(), E_USER_ERROR);
+		trigger_error("Query Error: ".$sql."\nError: ".$e->getMessage(), E_USER_WARNING);
 		echo $e;
 		return FALSE;
 	}
@@ -117,14 +118,16 @@ function dbresult($statement, $row) {
 
 /**
  * Count the number of affected rows by the given query
- * @param \PDOStatement $statement
- * @return int
+ * @param \PDOStatement $query
+ * @return mixed  Auch hier kein return setzen!
  */
-function dbrows($statement) {
-    if ($statement !== FALSE && $statement !== NULL) {
-        return $statement->rowCount();
-    }
-    return NULL;
+function dbrows(PDOStatement $query) {
+	if (!($query instanceof PDOStatement)) {
+		// ist auskommentiert wegen der Vielen Fehlerabfragen in PHP-Fusion
+		//throw new InvalidArgumentException('dbrows expects a PDOStatement');
+		return null;
+	}
+	return $query->rowCount();
 }
 
 /**
@@ -155,7 +158,7 @@ function dbarraynum($statement) {
  * @param string  $db_user
  * @param string  $db_pass
  * @param string  $db_name
- * @param boolean $halt_on_error If it is TRUE, the script will halt in case of error
+ * @  param boolean $halt_on_error If it is TRUE, the script will halt in case of error
  */
 function dbconnect($db_host, $db_user, $db_pass, $db_name, $db_port = 3306) {
 	$db_connect = TRUE;
@@ -188,34 +191,44 @@ function db_lastid() {
 
 /**
  * Get and set the \PDO instance
- * @static \PDO|NULL $_pdo
- * @param \PDO $pdo
- * @return \PDO|NULL
+ * @static \PDO|null $_pdo
+ * @param \PDO|null $pdo
+ * @return \PDO|null
  */
-function dbconnection(?\PDO $pdo = NULL) {
-	static $_pdo = NULL;
-	if (!empty($pdo) and $pdo instanceof \PDO) {
+function dbconnection(?\PDO $pdo = null) {
+	static $_pdo = null;
+	if (func_num_args() === 1) {
 		$_pdo = $pdo;
 	}
 	return $_pdo;
 }
 
-function dbclose() {
-    global $pdo;
-	/** @var PDO $pdo */
-    return $pdo = null;
+function db_last_statement(?\PDOStatement $statement = null) {
+    static $_last_statement = null;
+    if (func_num_args() === 1) {
+        $_last_statement = $statement;
+    }
+    return $_last_statement;
 }
 
-function dbnew_result($res, $row, $field=0) {
-	$res->data_seek($row);
-	$datarow = $res->fetch_array();
-	return $datarow[$field];
+//wird bei PDO eigentlich nicht mehr benötigt. Ausser bei Multiseiten mit verschiedenen Datenbanken
+function dbclose() {
+    db_last_statement(null);
+    dbconnection(null);
+    return null;
+}
+
+function dbnew_result(string $res,string  $row, $field=0) {
+    if ($res instanceof \PDOStatement) {
+        $rows = $res->fetchAll(PDO::FETCH_BOTH);
+        return isset($rows[$row][$field]) ? $rows[$row][$field] : null;
+    }
+    return null;
 }
 
 function db_affrows() {
-	global $pdo;
-	/** @var PDO $pdo */
-	return $pdo->rowCount();
+    $statement = db_last_statement();
+    return $statement instanceof \PDOStatement ? $statement->rowCount() : null;
 }
 
 // new added functions
@@ -223,60 +236,72 @@ function db_server_info() {
 	return dbconnection()->getAttribute(constant("PDO::ATTR_SERVER_VERSION"));
 }
 
-function db_fieldcount($result) {
+function db_fieldcount(PDOStatement $result) {
     return $result->columnCount();
 }
 
-function db_fetchfieldname($result, $field_offset) {
+function db_fetchfieldname(PDOStatement $result,mixed $field_offset) {
     $properties = $result->getColumnMeta($field_offset);
 	return $properties['name'];
 }
 
-function db_fetch_row($result) {
+function db_fetch_row(PDOStatement $result) {
 	return $result->fetch(PDO::FETCH_NUM);
 }
 
-function db_use_result($result){
-	global $pdo;
+function db_use_result(mixed $result){
 	$query = dbconnection()->prepare($result);
     $query->execute();
+    db_last_statement($query);
 	return true;
 }
 
-function db_fetchrow($result){
-    return $result->fetch_row();
+function db_fetchrow(mixed $result){
+    return $result->fetch(PDO::FETCH_NUM);
 }
 
 // added for compatibility to older mysql commands:
 if(!function_exists("mysql_field_name")) {
-	function mysql_field_name($result, $field_offset) {
+	function mysql_field_name(mixed $result,mixed $field_offset) {
 		return db_fetchfieldname($result, $field_offset);
 	}
 }
 if(!function_exists("mysql_free_result")) {
-	function mysql_free_result($result) {
+	function mysql_free_result(mixed $result) {
 		return $result->closeCursor();
 	}
 }
 if(!function_exists("mysql_escape_string")) {
-	function mysql_escape_string($query) {
-		global $pdo;
-		return $pdo->quote($unescaped_string);
+	function mysql_escape_string(mixed $query) {
+		$pdo = dbconnection();
+		if ($pdo) {
+			$quoted = $pdo->quote($query);
+			if ($quoted !== false) {
+				return substr($quoted, 1, -1);
+			}
+		}
+		return addslashes($query);
 	}
 }
 if(!function_exists("mysql_real_escape_string")) {
-	function mysql_real_escape_string($query) {
-		global $pdo;
-		return $pdo->quote($unescaped_string);
+	function mysql_real_escape_string(mixed $query) {
+		$pdo = dbconnection();
+		if ($pdo) {
+			$quoted = $pdo->quote($query);
+			if ($quoted !== false) {
+				return substr($quoted, 1, -1);
+			}
+		}
+		return addslashes($query);
 	}
 }
 if(!function_exists("mysql_query")) {
-	function mysql_query($query) {
+	function mysql_query(mixed $query) {
 		return dbquery($query);
 	}
 }
 if(!function_exists("mysql_num_rows")) {
-	function mysql_num_rows($result) {
+	function mysql_num_rows(mixed $result) {
 		return dbrows($result);
 	}
 }
@@ -286,27 +311,27 @@ if(!function_exists("mysql_insert_id")) {
 	}
 }
 if(!function_exists("mysql_connect")) {
-	function mysql_connect($db_host, $db_user, $db_pass) {
+	function mysql_connect(string $db_host,string $db_user,string $db_pass) {
     global $db_name;
         dbconnect($db_host, $db_user, $db_pass, $db_name, true);
 	}
-    function mysql_select_db($name) {
+    function mysql_select_db(string $name) {
         return true;
     }
 }
 if(!function_exists("mysql_close")) {
-	function mysql_close($dummy="") {
+	function mysql_close(string $dummy="") {
         dbclose();
         return true;
 	}
 }
 if(!function_exists("mysql_affected_rows")) {
-	function mysql_affected_rows($dummy="") {
+	function mysql_affected_rows(string $dummy="") {
         return db_affrows();
 	}
 }
 if(!function_exists("mysql_field_name")) {
-	function mysql_field_name($result, $field_offset) {
+	function mysql_field_name(mixed $result,mixed $field_offset) {
 		return db_fetchfieldname($result, $field_offset);
 	}
 }
