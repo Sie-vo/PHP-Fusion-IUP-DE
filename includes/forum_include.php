@@ -29,7 +29,7 @@ $imagetypes = array(
 	".wbmp"
 );
 
-function attach_exists($file) {
+function attach_exists(string $file) {
 	$dir = FORUM."attachments/";
 	$i = 1;
 	$file_name = substr($file, 0, strrpos($file, "."));
@@ -62,7 +62,7 @@ function forum_rank_cache() {
 	}
 }
 
-function show_forum_rank($posts, $level, $groups) {
+function show_forum_rank(string $posts,mixed $level,mixed $groups) {
 	global $locale, $settings, $forum_mod_rank_cache, $forum_post_rank_cache, $forum_special_rank_cache;
 	$res = "";
 	if ($settings['forum_ranks']) {
@@ -98,7 +98,7 @@ function show_forum_rank($posts, $level, $groups) {
 	return $res;
 }
 
-function display_image($file) {
+function display_image(string $file) {
 	$size = @getimagesize(FORUM."attachments/".$file);
 	
 	if ($size[0] > 300 || $size[1] > 200) {
@@ -126,7 +126,7 @@ function display_image($file) {
 	return $res;
 }
 
-function display_image_attach($file, $width = 50, $height = 50, $rel = "") {
+function display_image_attach(string $file, $width = 50, $height = 50, $rel = "") {
 	$size = @getimagesize(FORUM."attachments/".$file);
 		
 	if ($size [0] > $height || $size [1] > $width) {
@@ -169,4 +169,3 @@ if (isset($_GET['getfile']) && isnum($_GET['getfile'])) {
 	}
 	exit;
 }
-?>

@@ -15,6 +15,9 @@
 | copyright header is strictly prohibited without
 | written permission from the original author(s).
 +--------------------------------------------------------*/
+/**
+ * @var array $settings
+ */
 $fusion_page_replacements = "";
 $fusion_output_handlers = "";
 $fusion_page_title = $settings['sitename'];
@@ -34,12 +37,12 @@ function add_to_title($addition=""){
 	$fusion_page_title .= $addition;
 }
 
-function set_meta($name, $content=""){
+function set_meta(string $name, $content=""){
 	global $fusion_page_meta;
 	$fusion_page_meta[$name] = $content;
 }
 
-function add_to_meta($name, $addition=""){
+function add_to_meta(string $name, $addition=""){
 	global $fusion_page_meta;
 	if(isset($fusion_page_meta[$name])){
 		$fusion_page_meta[$name] .= $addition;
@@ -62,20 +65,20 @@ function add_to_footer($tag=""){
 	}
 }
 
-function replace_in_output($target, $replace, $modifiers=""){
+function replace_in_output(string $target,string $replace, $modifiers=""){
 	global $fusion_page_replacements;
 	
 	$fusion_page_replacements .= "\$output = preg_replace('^$target^$modifiers', '$replace', \$output);";
 }
 
-function add_handler($name){
+function add_handler(string $name){
 	global $fusion_output_handlers;
 	if(!empty($name)){
 		$fusion_output_handlers .= "\$output = $name(\$output);";
 	}
 }
 
-function handle_output($output){
+function handle_output(string $output){
 	global $fusion_page_head_tags ,$fusion_page_footer_tags, $fusion_page_title, $fusion_page_meta, $fusion_page_replacements, $fusion_output_handlers, $settings;
 
 	if(!empty($fusion_page_footer_tags)){
@@ -101,5 +104,3 @@ function handle_output($output){
 	
 	return $output;
 }
-
-?>

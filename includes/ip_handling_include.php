@@ -18,7 +18,7 @@
 if (!defined("IN_FUSION")) { die("Access Denied"); }
 
 // Uncompress an IPv6 address
-function uncompressIPv6($ip, $count=7) {
+function uncompressIPv6(mixed $ip, $count=7) {
 	if (strpos($ip, "::") !== FALSE) {
 		$ip = str_replace("::", str_repeat(":", $count + 2 - substr_count($ip, ":")), $ip);
 	}
@@ -69,4 +69,3 @@ if (dbcount("(blacklist_id)", DB_BLACKLIST, $check_value)) {
 	redirect("http://www.google.com/");
 }
 unset($check_value);
-?>

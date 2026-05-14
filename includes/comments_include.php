@@ -19,7 +19,7 @@ if (!defined("IN_FUSION")) { die("Access Denied"); }
 
 include LOCALE.LOCALESET."comments.php";
 
-function showcomments($ctype, $cdb, $ccol, $cid, $clink) {
+function showcomments(string $ctype,string $cdb,string $ccol,mixed $cid,string $clink) {
 
 	global $settings, $locale, $userdata, $aidlink;
 
@@ -234,4 +234,3 @@ function showcomments($ctype, $cdb, $ccol, $cid, $clink) {
 		closetable();
 	}
 }
-?>

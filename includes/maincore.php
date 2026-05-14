@@ -17,6 +17,13 @@
 +--------------------------------------------------------*/
 if (preg_match("/maincore.php/i", $_SERVER['PHP_SELF'])) { die(); }
 
+/**
+ * @var string $db_host
+ * @var string $db_user
+ * @var string $db_name
+ * @var string $db_pass
+ * @var string $db_pass
+ */
 // Calculate script start/end time
 function get_microtime() {
 	list($usec, $sec) = explode(" ", microtime());
@@ -60,7 +67,7 @@ $set_strict_mode = @dbquery("SET SESSION sql_mode = '';");
 unset($db_host, $db_user, $db_pass, $db_port);
 
 // Fetch the settings from the database
-$settings = array();
+$settings = [];
 $result = dbquery("SELECT * FROM ".DB_SETTINGS);
 if (dbrows($result)) {
 	while ($data = dbarray($result)) {
@@ -144,13 +151,13 @@ define("THEMES", BASEDIR."themes/");
 
 // Variables initializing
 $mysql_queries_count = 0;
-$mysql_queries_time = array();
+$mysql_queries_time = [];
 $smiley_cache = "";
 $bbcode_cache = "";
 $groups_cache = "";
 $forum_rank_cache = "";
 $forum_mod_rank_cache = "";
-$locale = array();
+$locale = [];
 
 // Calculate current true url
 $script_url = explode("/", $_SERVER['PHP_SELF']);
@@ -220,7 +227,7 @@ if(IsSet($userdata['user_theme'])) { set_theme($userdata['user_theme']); }
 else { set_theme('Default'); }
 
 // Check if a given theme exists and is valid
-function theme_exists($theme) {
+function theme_exists(string $theme) {
 	
 	$result = dbquery("SELECT `settings_value` FROM ".DB_SETTINGS." WHERE `settings_name` = 'theme' LIMIT 1");
 	if (dbrows($result)) {
@@ -241,7 +248,7 @@ function theme_exists($theme) {
 }
 
 // Set a valid theme
-function set_theme($theme) {
+function set_theme(string $theme) {
 	global $settings, $locale;
 	
 	$result = dbquery("SELECT `settings_value` FROM ".DB_SETTINGS." WHERE `settings_name` = 'theme' LIMIT 1");
@@ -277,21 +284,21 @@ function set_theme($theme) {
 }
 
 // Set the admin password when needed
-function set_admin_pass($password) {
+function set_admin_pass(string $password) {
 
 	Authenticate::setAdminCookie($password);
 
 }
 
 // Check if admin password matches userdata
-function check_admin_pass($password) {
+function check_admin_pass(string $password) {
 
 	return Authenticate::validateAuthAdmin($password);
 
 }
 
 // Redirect browser using header or script function
-function redirect($location, $script = false) {
+function redirect(string $location, $script = false) {
 	if (!$script) {
 		header("Location: ".str_replace("&amp;", "&", $location));
 		exit;
@@ -302,7 +309,7 @@ function redirect($location, $script = false) {
 }
 
 // Clean URL Function, prevents entities in server globals
-function cleanurl($url) {
+function cleanurl(string $url) {
 	$bad_entities = array("&", "\"", "'", '\"', "\'", "<", ">", "(", ")", "*");
 	$safe_entities = array("&amp;", "", "", "", "", "", "", "", "", "");
 	$url = str_replace($bad_entities, $safe_entities, $url);
@@ -310,7 +317,7 @@ function cleanurl($url) {
 }
 
 // Strip Input Function, prevents HTML in unwanted places
-function stripinput($text) {
+function stripinput(string $text) {
 	if (!is_array($text)) {
 		$text = stripslash(trim($text));
 		$text = preg_replace("/(&amp;)+(?=\#([0-9]{2,3});)/i", "&", $text);
@@ -326,7 +333,7 @@ function stripinput($text) {
 }
 
 // Prevent any possible XSS attacks via $_GET.
-function stripget($check_url) {
+function stripget(array $check_url) {
 	$return = false;
 	if (is_array($check_url)) {
 		foreach ($check_url as $value) {
@@ -344,7 +351,7 @@ function stripget($check_url) {
 }
 
 // Strip file name
-function stripfilename($filename) {
+function stripfilename(string $filename) {
 	$filename = strtolower(str_replace(" ", "_", $filename));
 	$filename = preg_replace("/[^a-zA-Z0-9_-]/", "", $filename);
 	$filename = preg_replace("/^\W/", "", $filename);
@@ -355,13 +362,13 @@ function stripfilename($filename) {
 }
 
 // Strip Slash Function, only stripslashes if magic_quotes_gpc is on
-function stripslash($text) {
+function stripslash(string $text) {
 	if (QUOTES_GPC) { $text = stripslashes($text); }
 	return $text;
 }
 
 // Add Slash Function, add correct number of slashes depending on quotes_gpc
-function addslash($text) {
+function addslash(string $text) {
 	if (!QUOTES_GPC) {
 		$text = addslashes(addslashes($text));
 	} else {
@@ -371,7 +378,7 @@ function addslash($text) {
 }
 
 // htmlentities is too agressive so we use this function
-function phpentities($text) {
+function phpentities(string $text) {
 	$search = array("&", "\"", "'", "\\", "<", ">");
 	$replace = array("&amp;", "&quot;", "&#39;", "&#92;", "&lt;", "&gt;");
 	$text = str_replace($search, $replace, $text);
@@ -379,7 +386,7 @@ function phpentities($text) {
 }
 
 // Trim a line of text to a preferred length
-function trimlink($text, $length) {
+function trimlink(string $text,mixed $length) {
 	$dec = array("&", "\"", "'", "\\", '\"', "\'", "<", ">");
 	$enc = array("&amp;", "&quot;", "&#39;", "&#92;", "&quot;", "&#39;", "&lt;", "&gt;");
 	$text = str_replace($enc, $dec, $text);
@@ -389,7 +396,7 @@ function trimlink($text, $length) {
 }
 
 // Validate numeric input
-function isnum($value) {
+function isnum(mixed $value) {
 	if (!is_array($value) && intval($value) || $value == '0') {
 		return (preg_match("/^[0-9]+$/", $value));
 	} else {
@@ -398,7 +405,7 @@ function isnum($value) {
 }
 
 // Custom preg-match function
-function preg_check($expression, $value) {
+function preg_check(string $expression,string $value) {
 	if (!is_array($value)) {
 		return preg_match($expression, $value);
 	} else {
@@ -425,7 +432,7 @@ function cache_smileys() {
 }
 
 // Parse smiley bbcode
-function parsesmileys($message) {
+function parsesmileys(string $message) {
 	global $smiley_cache;
 	if (!preg_match("#(\[code\](.*?)\[/code\]|\[geshi=(.*?)\](.*?)\[/geshi\]|\[php\](.*?)\[/php\])#si", $message)) {
 		if (!$smiley_cache) { cache_smileys(); }
@@ -441,7 +448,7 @@ function parsesmileys($message) {
 }
 
 // Show smiley icons in comments, forum and other post pages
-function displaysmileys($textarea, $form = "inputform") {
+function displaysmileys(string $textarea, $form = "inputform") {
 	global $smiley_cache;
 	$smileys = ""; $i = 0;
 	if (!$smiley_cache) { cache_smileys(); }
@@ -469,7 +476,7 @@ function cache_bbcode() {
 }
 
 // Parse bbcode
-function parseubb($text, $selected = false) {
+function parseubb(string $text, $selected = false) {
 	global $bbcode_cache;
 	if (!$bbcode_cache) { cache_bbcode(); }
 	if (is_array($bbcode_cache) && count($bbcode_cache)) {
@@ -502,7 +509,7 @@ function parseubb($text, $selected = false) {
 
 // Javascript email encoder by Tyler Akins
 // http://rumkin.com/tools/mailto_encoder/
-function hide_email($email, $title = "", $subject = "") {
+function hide_email(string $email, $title = "", $subject = "") {
 	if (strpos($email, "@")) {
 		$parts = explode("@", $email);
 		$MailLink = "<a href='mailto:".$parts[0]."@".$parts[1];
@@ -546,7 +553,7 @@ function hide_email($email, $title = "", $subject = "") {
 }
 
 // Format spaces and tabs in code bb tags
-function formatcode($text) {
+function formatcode(string $text) {
 	$text = str_replace("  ", "&nbsp; ", $text);
 	$text = str_replace("  ", " &nbsp;", $text);
 	$text = str_replace("\t", "&nbsp; &nbsp;", $text);
@@ -556,7 +563,7 @@ function formatcode($text) {
 
 // Highlights given words in subject
 // Don't forget to remove later
-function highlight_words($word, $subject) {
+function highlight_words(mixed $word,string $subject) {
 	for($i = 0, $l = count($word); $i < $l; $i++) {
 		$word[$i] = str_replace(array("\\", "+", "*", "?", "[", "^", "]", "$", "(", ")", "{", "}", "=", "!", "<", ">", "|", ":", "#", "-", "_"), "", $word[$i]);
 		if (!empty($word[$i])) {
@@ -568,7 +575,7 @@ function highlight_words($word, $subject) {
 
 
 // This function sanitises news & article submissions
-function descript($text, $striptags = true) {
+function descript(string $text, $striptags = true) {
 	// Convert problematic ascii characters to their true values
 	$search = array("40","41","58","65","66","67","68","69","70",
 		"71","72","73","74","75","76","77","78","79","80","81",
@@ -604,7 +611,7 @@ function descript($text, $striptags = true) {
 }
 
 // Scan image files for malicious code
-function verify_image($file) {
+function verify_image(string $file) {
 	$txt = file_get_contents($file);
 	$image_safe = true;
 	if (preg_match('#<?php#i', $txt)) { $image_safe = false; } //edit
@@ -621,7 +628,7 @@ function verify_image($file) {
 }
 
 // Replace offensive words with the defined replacement word
-function censorwords($text) {
+function censorwords(string $text) {
 	global $settings;
 	if ($settings['bad_words_enabled'] == "1" && $settings['bad_words'] != "" ) {
 		$word_list = explode("\r\n", $settings['bad_words']);
@@ -633,7 +640,7 @@ function censorwords($text) {
 }
 
 // Display the user's level
-function getuserlevel($userlevel) {
+function getuserlevel(int $userlevel) {
 	global $locale;
 	if ($userlevel == 101) { return $locale['user1'];
 	} elseif ($userlevel == 102) { return $locale['user2'];
@@ -641,7 +648,7 @@ function getuserlevel($userlevel) {
 }
 
 // Display the user's status
-function getuserstatus($userstatus) {
+function getuserstatus(int $userstatus) {
 	global $locale;
 	if ($userstatus == 0) { return $locale['status0'];
 	} elseif ($userstatus == 1) { return $locale['status1'];
@@ -655,7 +662,7 @@ function getuserstatus($userstatus) {
 }
 
 // Check if Administrator has correct rights assigned
-function checkrights($right) {
+function checkrights(string $right) {
 	if (iADMIN && in_array($right, explode(".", iUSER_RIGHTS))) {
 		return true;
 	} else {
@@ -663,7 +670,7 @@ function checkrights($right) {
 	}
 }
 
-function checkAdminPageAccess($right) {
+function checkAdminPageAccess(string $right) {
 	if (!checkrights($right) || !defined("iAUTH") || !isset($_GET['aid']) || $_GET['aid'] != iAUTH) {
 		return false;
 	} else {
@@ -672,7 +679,7 @@ function checkAdminPageAccess($right) {
 }
 
 // Check if user is assigned to the specified user group
-function checkgroup($group) {
+function checkgroup(mixed $group) {
 	if (iSUPERADMIN) { return true; }
 	elseif (iADMIN && ($group == "0" || $group == "101" || $group == "102")) { return true;
 	} elseif (iMEMBER && ($group == "0" || $group == "101")) { return true;
@@ -717,7 +724,7 @@ function getusergroups() {
 }
 
 // Get the name of the access level or user group
-function getgroupname($group_id, $return_desc = false) {
+function getgroupname (mixed $group_id, $return_desc = false) {
 	global $locale, $groups_cache;
 	if ($group_id == "0") { return $locale['user0'];
 	} elseif ($group_id == "101") { return $locale['user1']; exit;
@@ -735,11 +742,12 @@ function getgroupname($group_id, $return_desc = false) {
 }
 
 // Getting the access levels used when asking the database for data
-function groupaccess($field) {
+function groupaccess(mixed $field) {
+	$res = '';
 	if (iGUEST) { return "$field = '0'";
 	} elseif (iSUPERADMIN) { return "1 = 1";
-	} elseif (iADMIN) { $res = "($field='0' OR $field='101' OR $field='102'";
-	} elseif (iMEMBER) { $res = "($field='0' OR $field='101'";
+	} elseif (iADMIN) { $res .= "($field='0' OR $field='101' OR $field='102'";
+	} elseif (iMEMBER) { $res .= "($field='0' OR $field='101'";
 	}
 	if (iUSER_GROUPS != "" && !iSUPERADMIN) { $res .= " OR $field='".str_replace(".", "' OR $field='", iUSER_GROUPS)."'"; }
 	$res .= ")";
@@ -749,7 +757,7 @@ function groupaccess($field) {
 // Create a list of files or folders and store them in an array
 // You may filter out extensions by adding them to $extfilter as:
 // $ext_filter = "gif|jpg"
-function makefilelist($folder, $filter, $sort = true, $type = "files", $ext_filter = "") {
+function makefilelist(string $folder,string $filter, $sort = true, $type = "files", $ext_filter = "") {
 	$res = array();
 	$filter = explode("|", $filter);
 	if ($type == "files" && !empty($ext_filter)) {
@@ -773,7 +781,7 @@ function makefilelist($folder, $filter, $sort = true, $type = "files", $ext_filt
 }
 
 // Create a selection list from an array created by makefilelist()
-function makefileopts($files, $selected = "") {
+function makefileopts(array $files, $selected = "") {
 	$res = "";
 	for ($i = 0; $i < count($files); $i++) {
 		$sel = ($selected == $files[$i] ? " selected='selected'" : "");
@@ -783,7 +791,7 @@ function makefileopts($files, $selected = "") {
 }
 
 // Making Page Navigation
-function makepagenav($start, $count, $total, $range = 0, $link = "", $getname = "rowstart") {
+function makepagenav(mixed $start,mixed $count,mixed $total, $range = 0, $link = "", $getname = "rowstart") {
 	global $locale;
 
 	if ($link == "") { $link = FUSION_SELF."?"; }
@@ -942,7 +950,7 @@ function format_date($format, $time) {
 
 
 // Translate bytes into kB, MB, GB or TB by CrappoMan, lelebart fix
-function parsebytesize($size, $digits = 2, $dir = false) {
+function parsebytesize(mixed $size, $digits = 2, $dir = false) {
 	global $locale;
 	$kb = 1024; $mb = 1024 * $kb; $gb= 1024 * $mb; $tb = 1024 * $gb;
 	if (($size == 0) && ($dir)) { return $locale['global_460']; }
@@ -954,7 +962,7 @@ function parsebytesize($size, $digits = 2, $dir = false) {
 }
 
 // User profile link
-function profile_link($user_id, $user_name, $user_status, $class = "profile-link") {
+function profile_link(mixed $user_id,string $user_name,mixed $user_status, $class = "profile-link") {
 	global $locale, $settings;
 
 	$class = ($class ? " class='$class'" : "");
@@ -974,4 +982,3 @@ include INCLUDES."system_images.php";
 
 // added: check for updates
 include(INCLUDES.'update_version.php');
-?>

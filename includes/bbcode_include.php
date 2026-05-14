@@ -17,7 +17,7 @@
 +--------------------------------------------------------*/
 if (!defined("IN_FUSION")) { die("Access Denied"); }
 
-function display_bbcodes($width, $textarea_name = "message", $inputform_name = "inputform", $selected = false) {
+function display_bbcodes(mixed $width, $textarea_name = "message", $inputform_name = "inputform", $selected = false) {
 	global $bbcode_cache, $p_data;
 
 	if (!$bbcode_cache) { cache_bbcode(); }
@@ -103,7 +103,7 @@ function display_bbcodes($width, $textarea_name = "message", $inputform_name = "
 	return "<div style='width:".$width."'>\n".$bbcodes."</div>\n";
 }
 
-function strip_bbcodes($text) {
+function strip_bbcodes(string $text) {
 	global $bbcode_cache, $p_data;
 	$textarea_name = "";
 	$inputform_name = "";

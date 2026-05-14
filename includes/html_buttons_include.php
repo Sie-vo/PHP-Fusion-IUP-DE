@@ -19,7 +19,7 @@ if (!defined("IN_FUSION")) { die("Access Denied"); }
 
 include LOCALE.LOCALESET."admin/html_buttons.php";
 
-function display_html($formname, $textarea, $html = true, $colors = false, $images = false, $folder = "") {
+function display_html(string $formname,string $textarea, $html = true, $colors = false, $images = false, $folder = "") {
 
 	global $locale; $res = "";
 
@@ -69,4 +69,3 @@ function display_html($formname, $textarea, $html = true, $colors = false, $imag
 
 	return $res;
 }
-?>

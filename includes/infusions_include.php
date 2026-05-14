@@ -19,7 +19,7 @@
 if (!defined("IN_FUSION")) { die("Access Denied"); }
 
 // Creates an unique filename if file already exists
-function filename_exists($dir, $file) {
+function filename_exists(string $dir,string $file) {
 	$i = 1;
 	$file_name = substr($file, 0, strrpos($file, "."));
 	$file_ext = strrchr($file, ".");
@@ -31,7 +31,7 @@ function filename_exists($dir, $file) {
 }
 
 // Sets the value of a setting in the settings_inf table
-function set_setting($setting_name, $setting_value, $setting_inf) {
+function set_setting(string $setting_name,string $setting_value,string $setting_inf) {
 	$set_result = dbquery("SELECT settings_name FROM ".DB_SETTINGS_INF." WHERE settings_name='".$setting_name."' AND settings_inf='".$setting_inf."'");
 	$return = true;
 	if (dbrows($set_result)) {
@@ -45,7 +45,7 @@ function set_setting($setting_name, $setting_value, $setting_inf) {
 }
 
 // Get the settings for the infusion from the settings_inf table
-function get_settings($setting_inf) {
+function get_settings(string $setting_inf) {
 	$settings_arr = array();
 	$set_result = dbquery("SELECT settings_name, settings_value FROM ".DB_SETTINGS_INF." WHERE settings_inf='".$setting_inf."'");
 	if (dbrows($set_result)) {
@@ -59,7 +59,7 @@ function get_settings($setting_inf) {
 }
 
 // Send PM to a user
-function send_pm($to, $from, $subject, $message, $smileys = "y") {
+function send_pm(mixed $to,mixed $from,string $subject,string $message, $smileys = "y") {
 	global $settings;
 
 	include LOCALE.LOCALESET."messages.php";
@@ -114,7 +114,7 @@ function send_pm($to, $from, $subject, $message, $smileys = "y") {
 
 // Upload file function
 function upload_file(
-	$source_file, $target_file = "", $target_folder = DOWNLOADS, $valid_ext = ".zip,.rar,.tar,.bz2,.7z",
+	string $source_file, $target_file = "",string $target_folder = DOWNLOADS, $valid_ext = ".zip,.rar,.tar,.bz2,.7z",
 	$max_size = "15000", $query = ""
 ) {
 	if (is_uploaded_file($_FILES[$source_file]['tmp_name'])) {
@@ -156,10 +156,10 @@ function upload_file(
 
 // Upload image function
 function upload_image(
-	$source_image, $target_name = "", $target_folder = IMAGES, $target_width = "1800", $target_height = "1600",
+	string $source_image, $target_name = "",string $target_folder = IMAGES, $target_width = "1800", $target_height = "1600",
 	$max_size = "150000", $delete_original = false, $thumb1 = true, $thumb2 = true,
-	$thumb1_ratio = 0, $thumb1_folder = IMAGES, $thumb1_suffix = "_t1", $thumb1_width = "100", $thumb1_height = "100",
-	$thumb2_ratio = 0, $thumb2_folder = IMAGES, $thumb2_suffix = "_t2", $thumb2_width = "400", $thumb2_height = "300",
+	$thumb1_ratio = 0,string $thumb1_folder = IMAGES, $thumb1_suffix = "_t1", $thumb1_width = "100", $thumb1_height = "100",
+	$thumb2_ratio = 0,string $thumb2_folder = IMAGES, $thumb2_suffix = "_t2", $thumb2_width = "400", $thumb2_height = "300",
 	$query = ""
 ) {
 	if (is_uploaded_file($_FILES[$source_image]['tmp_name'])) {
@@ -255,7 +255,7 @@ function upload_image(
 }
 
 // Download file from server
-function download_file($file) {
+function download_file(string $file) {
 	require_once INCLUDES."class.httpdownload.php";
 
 	ob_end_clean();
@@ -265,5 +265,3 @@ function download_file($file) {
 	$object->download();
 	exit;
 }
-
-?>

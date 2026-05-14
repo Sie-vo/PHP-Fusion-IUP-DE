@@ -10,6 +10,9 @@
 | GNU General Public License. For details refer to
 | the included gpl.txt file or visit http://gnu.org
 +----------------------------------------------------*/
+/** @var array $locale
+ *  @var array $settings
+*/
 if (!defined("IN_FUSION")) { die("Access Denied"); }
 
 $image_files = array();
@@ -96,4 +99,3 @@ if (isset($image_files)) {
 	fwrite($fp, $indhold);
 	fclose($fp);
 }
-?>

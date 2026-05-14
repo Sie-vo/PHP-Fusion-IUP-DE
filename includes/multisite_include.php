@@ -68,4 +68,3 @@ define("DB_USER_LOG", DB_PREFIX."user_log");
 define("DB_USERS", DB_PREFIX."users");
 define("DB_WEBLINK_CATS", DB_PREFIX."weblink_cats");
 define("DB_WEBLINKS", DB_PREFIX."weblinks");
-?>

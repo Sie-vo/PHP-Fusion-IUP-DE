@@ -17,7 +17,7 @@
 +--------------------------------------------------------*/
 if (!defined("IN_FUSION")) { die("Access Denied"); }
 
-function flood_control($field, $table, $where) {
+function flood_control(string $field,string $table,string $where) {
 	
 	global $userdata, $settings, $locale;
 	
@@ -48,4 +48,3 @@ function flood_control($field, $table, $where) {
 	}	
 	return $flood;
 }
-?>

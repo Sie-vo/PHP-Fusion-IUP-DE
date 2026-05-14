@@ -39,34 +39,34 @@
 
 class httpdownload {
 
-	var $data = null;
-	var $data_len = 0;
-	var $data_mod = 0;
-	var $data_type = 0;
-	var $data_section = 0; //section download
+	public mixed $data = null;
+	public $data_len = 0;
+	public $data_mod = 0;
+	public $data_type = 0;
+	public $data_section = 0; //section download
 	/**
-	 * @var ObjectHandler
+	 * @ var ObjectHandler funktioniert nicht mehr
 	 **/
-	var $handler = array('auth' => null);
-	var $use_resume = true;
-	var $use_autoexit = false;
-	var $use_auth = false;
-	var $filename = null;
-	var $mime = null;
-	var $bufsize = 2048;
-	var $seek_start = 0;
-	var $seek_end = -1;
+	public $handler = array('auth' => null);
+	public $use_resume = true;
+	public $use_autoexit = false;
+	public $use_auth = false;
+	public mixed $filename = null;
+	public mixed $mime = null;
+	public $bufsize = 2048;
+	public $seek_start = 0;
+	public $seek_end = -1;
 
 	/**
 	 * Total bandwidth has been used for this download
 	 * @var int
 	 */
-	var $bandwidth = 0;
+	public $bandwidth = 0;
 	/**
 	 * Speed limit
 	 * @var float
 	 */
-	var $speed = 0;
+	public $speed = 0;
 
 	/*-------------------
 	| Download Function |
@@ -75,7 +75,7 @@ class httpdownload {
 	 * Check authentication and get seek position
 	 * @return bool
 	 **/
-	function initialize() {
+	public function initialize() {
 		global $HTTP_SERVER_VARS;
 
 		if ($this->use_auth) //use authentication
@@ -135,7 +135,7 @@ class httpdownload {
 	/**
 	 * Send download information header
 	 **/
-	function header($size,$seek_start=null,$seek_end=null) {
+	public function header(mixed $size,$seek_start=null,$seek_end=null) {
 		header('Content-type: ' . $this->mime);
 		header('Content-Disposition: attachment; filename="' . $this->filename . '"');
 		header('Last-Modified: ' . date('D, d M Y H:i:s \G\M\T' , $this->data_mod));
@@ -154,7 +154,8 @@ class httpdownload {
 		}
 	}
 
-	function download_ex($size)
+	/* Da benötigt und $seek nicht deklariert erstmal auskommentiert
+	public function download_ex(mixed $size)
 	{
 		if (!$this->initialize()) return false;
 		ignore_user_abort(true);
@@ -164,7 +165,7 @@ class httpdownload {
 		$this->header($size,$seek,$this->seek_end);
 		$this->data_mod = time();
 		return true;
-	}
+	}*/
 
 	/**
 	 * Start download
@@ -277,7 +278,7 @@ class httpdownload {
 		return true;
 	}
 
-	function set_byfile($dir) {
+	public function set_byfile(string $dir) {
 		if (is_readable($dir) && is_file($dir)) {
 			$this->data_len = 0;
 			$this->data = $dir;
@@ -287,7 +288,7 @@ class httpdownload {
 		} else return false;
 	}
 
-	function set_bydata($data) {
+	public function set_bydata(string $data) {
 		if ($data == '') return false;
 		$this->data = $data;
 		$this->data_len = strlen($data);
@@ -296,22 +297,22 @@ class httpdownload {
 		return true;
 	}
 
-	function set_byurl($data) {
+	public function set_byurl(string $data) {
 		$this->data = $data;
 		$this->data_len = 0;
 		$this->data_type = 2;
 		return true;
 	}
 
-  function set_filename($filename) {
+  public function set_filename(string $filename) {
     $this->filename = $filename;
   }
 
-  function set_mime($mime) {
+  public function set_mime(string $mime) {
     $this->mime = $mime;
   }
 
-	function set_lastmodtime($time) {
+	public function set_lastmodtime(mixed $time) {
 		$time = intval($time);
 		if ($time <= 0) $time = time();
 		$this->data_mod = $time;
@@ -321,7 +322,7 @@ class httpdownload {
 	 * Check authentication
 	 * @return bool
 	 **/
-	function _auth() {
+	public function _auth() {
 		if (!isset($_SERVER['PHP_AUTH_USER'])) return false;
 		if (isset($this->handler['auth']) && function_exists($this->handler['auth']))
 		{
@@ -331,5 +332,3 @@ class httpdownload {
 	}
 
 }
-
-?>

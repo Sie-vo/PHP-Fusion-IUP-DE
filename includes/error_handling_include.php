@@ -27,7 +27,7 @@ set_error_handler("setError");
 $_errorHandler = [];
 
 // PHP-Fusion Error Handler
-function setError($error_level, $error_message, $error_file, $error_line, $error_context="") {
+function setError(mixed $error_level,string $error_message,string $error_file,mixed $error_line, $error_context="") {
     global $userdata, $_errorHandler;
 
     $error_file = stripinput($error_file);
@@ -72,7 +72,7 @@ function setError($error_level, $error_message, $error_file, $error_line, $error
 }
 
 // Error Levels Desciption
-function getErrorLevel($level, $desc = FALSE) {
+function getErrorLevel(mixed $level, $desc = FALSE) {
     global $locale;
 
     $errorLevels = [

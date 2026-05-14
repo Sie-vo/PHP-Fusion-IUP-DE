@@ -23,6 +23,7 @@
 */
 
 /**
+ * @todo PHP Mailer braucht ein Update https://github.com/PHPMailer/PHPMailer/tree/master 
  * PHPMailer - PHP email transport class
  * NOTE: Requires PHP version 5 or later
  * @package PHPMailer
@@ -264,9 +265,9 @@ class PHPMailer {
 
    /**
    * If SingleTo is true, this provides the array to hold the email addresses
-   * @var bool
+   * @var array
    */
-  public $SingleToArray = array();
+  public $SingleToArray = [];
 
  /**
    * Provides the ability to change the line ending
@@ -344,7 +345,7 @@ class PHPMailer {
   protected   $all_recipients = array();
   protected   $attachment     = array();
   protected   $CustomHeader   = array();
-  protected   $message_type   = '';
+  protected   $message_type   = [];
   protected   $boundary       = array();
   protected   $language       = array();
   protected   $error_count    = 0;
