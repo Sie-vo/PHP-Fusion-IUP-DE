@@ -15,6 +15,8 @@
 | copyright header is strictly prohibited without
 | written permission from the original author(s).
 +--------------------------------------------------------*/
+/** @var array $locale
+*/
 if (!defined("IN_FUSION")) { die("Access Denied"); }
 
 // Version of the user fields api

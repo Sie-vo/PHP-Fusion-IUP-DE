@@ -15,6 +15,9 @@
 | copyright header is strictly prohibited without
 | written permission from the original author(s).
 +--------------------------------------------------------*/
+/** @var array $locale
+ *  @var array $user_data
+*/
 if (!defined("IN_FUSION")) { die("Access Denied"); }
 
 if ($profile_method == "input") {
@@ -30,4 +33,3 @@ if ($profile_method == "input") {
 } elseif ($profile_method == "validate_update") {
 	//Nothing here
 }
-?>

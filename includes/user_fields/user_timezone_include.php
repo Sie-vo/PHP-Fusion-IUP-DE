@@ -15,6 +15,11 @@
 | copyright header is strictly prohibited without
 | written permission from the original author(s).
 +--------------------------------------------------------*/
+/** @var array $locale
+ *  @var array $user_data
+ *  @var array $settings
+ *  @var string $required
+*/
 defined('IN_FUSION') || exit;
 
 // Display user field input

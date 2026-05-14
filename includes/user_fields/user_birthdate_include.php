@@ -22,7 +22,10 @@
 | Fileversion: 1.0                                       |
 +--------------------------------------------------------+
 */
- 
+/** @var array $locale
+ *  @var array $user_data
+ *  @var string $required
+*/
 if (!defined("IN_FUSION")) {
    die("Access denied");
 }
@@ -103,4 +106,3 @@ elseif ($profile_method == "validate_insert"  || $profile_method == "validate_up
       $this -> _setError("user_birthdate", $locale['uf_birthdate_error'], TRUE);
    }
 }
-?>

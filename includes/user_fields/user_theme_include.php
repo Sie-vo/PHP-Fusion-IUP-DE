@@ -15,6 +15,11 @@
 | copyright header is strictly prohibited without
 | written permission from the original author(s).
 +--------------------------------------------------------*/
+/** @var array $locale
+ *  @var array $user_data
+ *  @var array $settings
+ *  @var string $required
+*/
 if (!defined("IN_FUSION")) { die("Access Denied"); }
 
 // Display user field input
@@ -53,4 +58,3 @@ if ($profile_method == "input") {
 		}
 	}
 }
-?>

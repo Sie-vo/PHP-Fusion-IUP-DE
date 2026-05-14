@@ -15,6 +15,9 @@
 | copyright header is strictly prohibited without
 | written permission from the original author(s).
 +--------------------------------------------------------*/
+/** @var array $locale
+ *  @var array $settings
+*/
 defined('IN_FUSION') || exit;
 
 // Version of the user fields api
@@ -24,4 +27,3 @@ $user_field_desc = $locale['uf_timezone_desc'];
 $user_field_dbname = "user_timezone";
 $user_field_group = 3;
 $user_field_dbinfo = "VARCHAR(75) NOT NULL DEFAULT '".$settings['default_timezone']."'";
-
