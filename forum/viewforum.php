@@ -133,7 +133,8 @@ if ($rows > $threads_per_page || (iMEMBER && $can_post)) {
 	$post_info .= "<table cellspacing='0' cellpadding='0' width='100%'>\n<tr>\n";
 	if ($rows > $threads_per_page) {
 		$post_info .= "<td style='padding:4px 0px 4px 0px'>";
-		$post_info .= makepagenav($_GET['rowstart'],$threads_per_page,$rows,3,FUSION_SELF."?forum_id=".$_GET['forum_id']."&amp;");
+		$forum_url = seo_url('forum', $_GET['forum_id'], $fdata['forum_name']);
+		$post_info .= makepagenav($_GET['rowstart'],$threads_per_page,$rows,3,$forum_url."?");
 		$post_info .= "</td>\n";
 	}
 	if (iMEMBER && $can_post) {
@@ -184,12 +185,13 @@ if ($rows) {
 			echo "<td align='center' width='1%' class='tbl2' style='white-space:nowrap'>$folder</td>";
 		}
 		$reps = ceil($tdata['thread_postcount'] / $threads_per_page);
-		$threadsubject = "<a href='viewthread.php?thread_id=".$tdata['thread_id']."'>".$tdata['thread_subject']."</a>";
+		$thread_url = seo_url('thread', $tdata['thread_id'], $tdata['thread_subject']);
+		$threadsubject = "<a href='".$thread_url."'>".$tdata['thread_subject']."</a>";
 		if ($reps > 1) {
 			$ctr = 0; $ctr2 = 1; $pages = ""; $middle = false;
 			while ($ctr2 <= $reps) {
 				if ($reps < 5 || ($reps > 4 && ($ctr2 == 1 || $ctr2 > ($reps-3)))) {
-					$pnum = "<a href='viewthread.php?thread_id=".$tdata['thread_id']."&amp;rowstart=$ctr'>$ctr2</a> ";
+					$pnum = "<a href='".$thread_url."?rowstart=$ctr'>$ctr2</a> ";
 				} else {
 					if ($middle == false) {
 						$middle = true; $pnum = "... ";

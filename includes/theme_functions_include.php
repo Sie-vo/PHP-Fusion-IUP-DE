@@ -130,8 +130,9 @@ function newsposter(array $info, $sep = "", $class = "") {
 function newsopts(array $info,mixed $sep, $class = "") {
 	global $locale, $settings; $res = "";
 	$link_class = $class ? " class='$class' " : "";
-	if (!isset($_GET['readmore']) && $info['news_ext'] == "y") $res = "<a href='news.php?readmore=".$info['news_id']."'".$link_class.">".$locale['global_072']."</a> ".$sep." ";
-	if ($info['news_allow_comments'] && $settings['comments_enabled'] == "1") { $res .= "<a href='news.php?readmore=".$info['news_id']."#comments'".$link_class.">".$info['news_comments'].($info['news_comments'] == 1 ? $locale['global_073b'] : $locale['global_073'])."</a> ".$sep." "; }
+	$news_url = seo_url('news', $info['news_id'], $info['news_subject'] ?? '');
+	if (!isset($_GET['readmore']) && $info['news_ext'] == "y") $res = "<a href='".$news_url."'".$link_class.">".$locale['global_072']."</a> ".$sep." ";
+	if ($info['news_allow_comments'] && $settings['comments_enabled'] == "1") { $res .= "<a href='".$news_url."#comments'".$link_class.">".$info['news_comments'].($info['news_comments'] == 1 ? $locale['global_073b'] : $locale['global_073'])."</a> ".$sep." "; }
 	if ($info['news_ext'] == "y" || ($info['news_allow_comments'] && $settings['comments_enabled'] == "1")) { $res .= $info['news_reads'].$locale['global_074']."\n ".$sep; }
 	$res .= "<a href='print.php?type=N&amp;item_id=".$info['news_id']."'><img src='".get_image("printer")."' alt='".$locale['global_075']."' style='vertical-align:middle;border:0;' /></a>\n";
 	return "<!--news_opts-->".$res;
@@ -160,7 +161,8 @@ function articleposter(array $info, $sep = "", $class = "") {
 
 function articleopts(array $info,mixed $sep) {
 	global $locale, $settings; $res = "";
-	if ($info['article_allow_comments'] && $settings['comments_enabled'] == "1") { $res = "<a href='articles.php?article_id=".$info['article_id']."#comments'>".$info['article_comments'].($info['article_comments'] == 1 ? $locale['global_073b'] : $locale['global_073'])."</a> ".$sep."\n"; }
+	$article_url = seo_url('article', $info['article_id'], $info['article_subject'] ?? '');
+	if ($info['article_allow_comments'] && $settings['comments_enabled'] == "1") { $res = "<a href='".$article_url."#comments'>".$info['article_comments'].($info['article_comments'] == 1 ? $locale['global_073b'] : $locale['global_073'])."</a> ". $sep."\n"; }
 	$res .= $info['article_reads'].$locale['global_074']." ".$sep."\n";
 	$res .= "<a href='print.php?type=A&amp;item_id=".$info['article_id']."'><img src='".get_image("printer")."' alt='".$locale['global_075']."' style='vertical-align:middle;border:0;' /></a>\n";
 	return "<!--article_opts-->".$res;

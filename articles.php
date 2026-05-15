@@ -97,11 +97,12 @@ if (isset($_GET['article_id']) && isnum($_GET['article_id'])) {
 		echo "<!--pre_article-->";
 		render_article($article_subject, $article[$_GET['rowstart']], $article_info);
 		echo "<!--sub_article-->";
+		$article_url = seo_url('article', $_GET['article_id'], $article_subject);
 		if ($pagecount > 1) {
-			echo "<div align='center' style='margin-top:5px;'>\n".makepagenav($_GET['rowstart'], 1, $pagecount, 3, FUSION_SELF."?article_id=".$_GET['article_id']."&amp;")."\n</div>\n";
+			echo "<div align='center' style='margin-top:5px;'>\n".makepagenav($_GET['rowstart'], 1, $pagecount, 3, $article_url."?")."\n</div>\n";
 		}
-		if ($data['article_allow_comments']) { showcomments("A", DB_ARTICLES, "article_id", $_GET['article_id'], FUSION_SELF."?article_id=".$_GET['article_id']); }
-		if ($data['article_allow_ratings']) { showratings("A", $_GET['article_id'], FUSION_SELF."?article_id=".$_GET['article_id']); }
+		if ($data['article_allow_comments']) { showcomments("A", DB_ARTICLES, "article_id", $_GET['article_id'], $article_url); }
+		if ($data['article_allow_ratings']) { showratings("A", $_GET['article_id'], $article_url); }
 	} else {
 		redirect(FUSION_SELF);
 	}
@@ -163,7 +164,8 @@ if (isset($_GET['article_id']) && isnum($_GET['article_id'])) {
 					} else {
 						$new = "";
 					}
-					echo "<div class='".$class."'><strong><a href='".FUSION_SELF."?article_id=".$data['article_id']."'>".$data['article_subject']."</a></strong>".$new."<br />\n".preg_replace("/<!?--\s*pagebreak\s*-->/i", "", stripslashes($data['article_snippet']))."</div>";
+					$article_url = seo_url('article', $data['article_id'], $data['article_subject']);
+					echo "<div class='".$class."'><strong><a href='".$article_url."'>".$data['article_subject']."</a></strong>".$new."<br />\n".preg_replace("/<!?--\s*pagebreak\s*-->/i", "", stripslashes($data['article_snippet']))."</div>";
 				echo ($i != $numrows ? "<hr />\n" : "\n"); $i++;
 				}
 				echo "<!--sub_article_cat-->";

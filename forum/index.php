@@ -65,7 +65,8 @@ if (dbrows($result) != 0) {
 		}
 		echo "<tr>\n";
 		echo "<td align='center' width='1%' class='tbl2' style='white-space:nowrap'>$fim</td>\n";
-		echo "<td class='tbl1 forum_name'><!--forum_name--><a href='viewforum.php?forum_id=".$data['forum_id']."'>".$data['forum_name']."</a><br />\n";
+		$forum_url = seo_url('forum', $data['forum_id'], $data['forum_name']);
+		echo "<td class='tbl1 forum_name'><!--forum_name--><a href='".$forum_url."'>".$data['forum_name']."</a><br />\n";
 		if ($data['forum_description'] || $moderators) {
 			echo "<span class='small'>".nl2br(parseubb($data['forum_description'])).($data['forum_description'] && $moderators ? "<br />\n" : "");
 			echo ($moderators ? "<strong>".$locale['411']."</strong>".$moderators."</span>\n" : "</span>\n")."\n";

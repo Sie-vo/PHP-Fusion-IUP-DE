@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /*-------------------------------------------------------+
 | PHP-Fusion Content Management System
 | Copyright (C) 2002 - 2011 Nick Jones
@@ -157,7 +157,8 @@ if (iMEMBER) {
 opentable($locale['500']);
 
 // breadcrumbs
-$caption = $fdata['forum_cat_name']." &raquo; <a href='viewforum.php?forum_id=".$fdata['forum_id']."'>".$fdata['forum_name']."</a>";
+$forum_url = seo_url('forum', $fdata['forum_id'], $fdata['forum_name']);
+$caption = $fdata['forum_cat_name']." &raquo; <a href='".$forum_url."'>".$fdata['forum_name']."</a>";
 echo "<!--pre_forum_thread--><div class='tbl2 forum_breadcrumbs' style='margin:0px 0px 4px 0px'><a href='index.php' id='top'>".$settings['sitename']."</a> &raquo; ".$caption."</div>\n";
 
 // thread
@@ -166,7 +167,7 @@ list($rows, $last_post) = dbarraynum(dbquery(
 
 if (($rows > $posts_per_page) || ($can_post || $can_reply)) {
 	echo "<table cellspacing='0' cellpadding='0' width='100%'>\n<tr>\n";
-	if ($rows > $posts_per_page) { echo "<td style='padding:4px 0px 4px 0px'>".makepagenav($_GET['rowstart'],$posts_per_page,$rows,3,FUSION_SELF."?thread_id=".$_GET['thread_id']."&amp;")."</td>\n"; }
+        $thread_url = seo_url('thread', $_GET['thread_id'], $fdata['thread_subject']);
 	if (iMEMBER && $can_post) {
 		echo "<td align='right' style='padding:0px 0px 4px 0px'>\n<!--pre_forum_buttons-->\n";
 		if ($can_post) {
@@ -403,7 +404,7 @@ if (iMOD) {
 
 if ($rows > $posts_per_page) {
 	echo "<div align='center' style='padding-top:5px'>\n";
-	echo makepagenav($_GET['rowstart'],$posts_per_page,$rows,3,FUSION_SELF."?thread_id=".$_GET['thread_id'].(isset($_GET['highlight']) ? "&amp;highlight=".urlencode($_GET['highlight']):"")."&amp;")."\n";
+	echo makepagenav($_GET['rowstart'],$posts_per_page,$rows,3,$thread_url."?".(isset($_GET['highlight']) ? "highlight=".urlencode($_GET['highlight'])."&amp;" : ""))."\n";
 	echo "</div>\n";
 }
 

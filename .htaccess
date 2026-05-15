@@ -1,0 +1,23 @@
+# Enable SEO-friendly URLs for core PHP-Fusion pages
+RewriteEngine On
+
+# If a real file or directory exists, do not rewrite.
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# SEO rules for friendly content pages
+RewriteRule ^news/([0-9]+)/([^/]+)/?$ news.php?readmore=$1 [L,QSA]
+RewriteRule ^artikel/([0-9]+)/([^/]+)/?$ articles.php?article_id=$1 [L,QSA]
+RewriteRule ^seite/([0-9]+)/([^/]+)/?$ viewpage.php?page_id=$1 [L,QSA]
+RewriteRule ^profil/([0-9]+)/([^/]+)/?$ profile.php?lookup=$1 [L,QSA]
+RewriteRule ^forum/thread/([0-9]+)/([^/]+)/?$ forum/viewthread.php?thread_id=$1 [L,QSA]
+RewriteRule ^forum/([0-9]+)/([^/]+)/?$ forum/viewforum.php?forum_id=$1 [L,QSA]
+
+# Fallback for last-resort pretty URLs without slug segment
+RewriteRule ^news/([0-9]+)/?$ news.php?readmore=$1 [L,QSA]
+RewriteRule ^artikel/([0-9]+)/?$ articles.php?article_id=$1 [L,QSA]
+RewriteRule ^seite/([0-9]+)/?$ viewpage.php?page_id=$1 [L,QSA]
+RewriteRule ^profil/([0-9]+)/?$ profile.php?lookup=$1 [L,QSA]
+RewriteRule ^forum/thread/([0-9]+)/?$ forum/viewthread.php?thread_id=$1 [L,QSA]
+RewriteRule ^forum/([0-9]+)/?$ forum/viewforum.php?forum_id=$1 [L,QSA]

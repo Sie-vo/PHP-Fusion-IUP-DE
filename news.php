@@ -136,11 +136,12 @@ if (!isset($_GET['readmore']) || !isnum($_GET['readmore'])) {
 		echo "<!--news_pre_readmore-->";
 		render_news($news_subject, $news_news[$_GET['rowstart']], $news_info);
 		echo "<!--news_sub_readmore-->";
+		$news_url = seo_url('news', $data['news_id'], $data['news_subject']);
 		if ($pagecount > 1) {
-			echo "<div align='center' style='margin-top:5px;'>\n".makepagenav($_GET['rowstart'], 1, $pagecount, 3, FUSION_SELF."?readmore=".$_GET['readmore']."&amp;")."\n</div>\n";
+			echo "<div align='center' style='margin-top:5px;'>\n".makepagenav($_GET['rowstart'], 1, $pagecount, 3, $news_url."?")."\n</div>\n";
 		}
-		if ($data['news_allow_comments']) { showcomments("N", DB_NEWS, "news_id", $_GET['readmore'], FUSION_SELF."?readmore=".$_GET['readmore']); }
-		if ($data['news_allow_ratings']) { showratings("N", $_GET['readmore'], FUSION_SELF."?readmore=".$_GET['readmore']); }
+		if ($data['news_allow_comments']) { showcomments("N", DB_NEWS, "news_id", $_GET['readmore'], $news_url); }
+		if ($data['news_allow_ratings']) { showratings("N", $_GET['readmore'], $news_url); }
 	} else {
 		redirect(FUSION_SELF);
 	}

@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /*-------------------------------------------------------+
 | PHP-Fusion Content Management System
 | Copyright (C) 2002 - 2011 Nick Jones
@@ -956,6 +956,39 @@ function parsebytesize(int $size, $digits = 2, $dir = false) {
 	else { return round($size / $tb, $digits).$locale['global_465']; }
 }
 
+// Generate a URL-friendly slug from a title or name
+function seo_slug(string $text) {
+	$text = strip_tags($text);
+	$text = html_entity_decode($text, ENT_QUOTES, 'UTF-8');
+	$text = preg_replace('/[\p{P}\p{S}\s]+/u', '-', $text);
+	$text = preg_replace('/[^\p{L}\p{N}\.\-]+/u', '', $text);
+	$text = preg_replace('/-+/', '-', $text);
+	$text = trim($text, '-');
+	$text = strtolower($text);
+	return $text !== '' ? $text : 'item';
+}
+
+// Build friendly SEO URLs for core item types
+function seo_url(string $type, int $id, string $title = '') {
+	$slug = seo_slug($title);
+	switch ($type) {
+		case 'news':
+			return BASEDIR.'news/'.$id.($slug ? '/'.$slug : '').'/';
+		case 'article':
+			return BASEDIR.'artikel/'.$id.($slug ? '/'.$slug : '').'/';
+		case 'page':
+			return BASEDIR.'seite/'.$id.($slug ? '/'.$slug : '').'/';
+		case 'profile':
+			return BASEDIR.'profil/'.$id.($slug ? '/'.$slug : '').'/';
+	case 'forum':
+		return BASEDIR.'forum/'.$id.($slug ? '/'.$slug : '').'/';
+	case 'thread':
+		return BASEDIR.'forum/thread/'.$id.($slug ? '/'.$slug : '').'/';
+		default:
+			return BASEDIR.$type.'.php?'.$type.'_id='.$id;
+	}
+}
+
 // User profile link
 function profile_link(int $user_id,string $user_name,int $user_status, $class = "profile-link") {
 	global $locale, $settings;
@@ -963,7 +996,7 @@ function profile_link(int $user_id,string $user_name,int $user_status, $class = 
 	$class = ($class ? " class='$class'" : "");
 
 	if ((in_array($user_status, array(0, 3, 7)) || checkrights("M")) && (iMEMBER || $settings['hide_userprofiles'] == "0")) {
-		$link = "<a href='".BASEDIR."profile.php?lookup=".$user_id."'".$class.">".$user_name."</a>";
+		$link = "<a href='".seo_url('profile', $user_id, $user_name)."'".$class.">".$user_name."</a>";
 	} elseif ($user_status == "5" || $user_status == "6") {
 		$link = $locale['user_anonymous'];
 	} else {

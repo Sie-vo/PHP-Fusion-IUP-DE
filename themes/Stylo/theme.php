@@ -143,7 +143,7 @@ if ($info['cat_id']) { echo "<li class='cat'><a href='".BASEDIR."news_cats.php?c
 if ($info['news_ext'] == "y" || ($info['news_allow_comments'] && $settings['comments_enabled'] == "1")) {
     echo "<li class='reads'>".$info['news_reads'].$locale['global_074']."</li>\n"; }
 if ($info['news_allow_comments'] && $settings['comments_enabled'] == "1") {
-    echo "<li class='comments'><a href='".BASEDIR."news.php?readmore=".$info['news_id']."#comments'>".$info['news_comments'].($info['news_comments'] == 1 ? $locale['global_073b'] : $locale['global_073'])."</a></li>\n"; }
+    echo "<li class='comments'><a href='".seo_url('news', $info['news_id'], $info['news_subject'] ?? '')."#comments'>".$info['news_comments'].($info['news_comments'] == 1 ? $locale['global_073b'] : $locale['global_073'])."</a></li>\n"; }
 	echo "</ul>\n";
     echo "</div>\n";
 	echo "<div class='main-body floatfix'>\n";
@@ -152,8 +152,9 @@ if ($info['news_sticky'] == "1") {
 	}
 	echo $info['cat_image'].$news."<br />\n";
 if (!isset($_GET['readmore']) && $info['news_ext'] == "y") {
+	$news_url = seo_url('news', $info['news_id'], $info['news_subject'] ?? '');
 	echo "<div class='flright'>\n";
-	echo "<a href='".BASEDIR."news.php?readmore=".$info['news_id']."' class='button'><span class='rightarrow icon'></span>".$locale['global_072']."</a>\n";
+	echo "<a href='".$news_url."' class='button'><span class='rightarrow icon'></span>".$locale['global_072']."</a>\n";
 	echo "</div>\n";
 }
 	echo "</div>\n";
@@ -185,7 +186,8 @@ if ($info['cat_id']) {
 	} else { echo "<li class='cat'><a href='".BASEDIR."articles.php?cat_id=0'>".$locale['global_080']."</a></li>\n"; }
 	echo "<li class='reads'>".$info['article_reads'].$locale['global_074']."</li>\n";
 if ($info['article_allow_comments'] && $settings['comments_enabled'] == "1") {
-	echo "<li class='comments'><a href='".BASEDIR."articles.php?article_id=".$info['article_id']."#comments'>".$info['article_comments'].($info['article_comments'] == 1 ? $locale['global_073b'] : $locale['global_073'])."</a></li>\n"; }
+	$article_url = seo_url('article', $info['article_id'], $info['article_subject'] ?? '');
+	echo "<li class='comments'><a href='".$article_url."#comments'>".$info['article_comments'].($info['article_comments'] == 1 ? $locale['global_073b'] : $locale['global_073'])."</a></li>\n"; }
 	echo "</ul>\n";
     echo "</div>\n";
 	echo "<div class='main-body floatfix'>".($info['article_breaks'] == "y" ? nl2br($article) : $article)."</div>\n";
