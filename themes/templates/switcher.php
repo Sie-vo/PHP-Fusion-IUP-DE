@@ -8,24 +8,26 @@
 #[AllowDynamicProperties]
 
 class Switcher{
-	var $args;
-	var $buttons;
-	var $class;
-	var $cookies;
-	var $dir;
-	var $enabled;
-	var $error;
-	var $ext;
-	var $mode;
-	var $name;
-	var $post;
-	var $props;
-	var $selected;
-	var $separator;
+	public mixed $args;
+	public array $buttons;
+	public mixed $class;
+	public mixed $cookies;
+	public mixed $dir;
+	public mixed $enabled;
+	public mixed $error;
+	public mixed $ext;
+	public mixed $mode;
+	public mixed $name;
+	public mixed $post;
+	public mixed $props;
+	public mixed $selected;
+	public mixed $separator;
+	public mixed $default;
+	public mixed $changed;
 	
-	function __construct($mode, $dir, $ext, $default, $class="", $separator=" ", $auto=true, $args=""){
+	public function __construct(mixed $mode,mixed $dir,mixed $ext,mixed $default, $class="", $separator=" ", $auto=true, $args=""){
 		$this->args = $args;
-		$this->buttons = array();
+		$this->buttons = [];
 		$this->changed = false;
 		$this->class = $class;
 		$this->cookies = $_COOKIE;
@@ -37,7 +39,7 @@ class Switcher{
 		$this->mode = $mode;
 		$this->name = $dir;
 		$this->post = $_POST;
-		$this->props = array();
+		$this->props = [];
 		$this->selected = "";
 		$this->separator = $separator;
 		
@@ -50,12 +52,12 @@ class Switcher{
 		}
 	}
 	
-	function disable(){
+	public function disable(){
 		$this->enabled = false;
 		$this->selected = $this->default;
 	}
 	
-	function getProps(){
+	public function getProps(){
 		$mode = $this->mode;
 		if($mode == "select"){
 			$dir = $this->dir;
@@ -76,9 +78,9 @@ class Switcher{
 		return $props;
 	}
 	
-	function getSelected(){
+	public function getSelected(){
 		$args = $this->args;
-		$cookie = $this->cookie;
+		$cookie = $this->cookies;
 		$cookie_val = isset($cookie["theme_".$this->name]) ? $cookie["theme_".$this->name] : "";
 		$mode = $this->mode;
 		$name = $this->name;
@@ -121,7 +123,7 @@ class Switcher{
 		}
 	}
 	
-	function writeSelected(){
+	public function writeSelected(){
 		if($this->selected == $this->default){
 			setcookie("theme_".$this->name, $this->selected, time()-3600*24*14, "/");
 		}else{
@@ -129,12 +131,12 @@ class Switcher{
 		}
 	}
 	
-	function getButtons(){
+	public function getButtons(){
 		$props = $this->props;
 		$dir = $this->dir;
 		$ext = $this->ext;
 		$class = $this->class;
-		$buttons = array();
+		$buttons = [];
 		
 		foreach($props as $prop){
 			if($prop != $this->selected){
@@ -145,7 +147,7 @@ class Switcher{
 		return $buttons;
 	}
 	
-	function makeForm($class=""){
+	public function makeForm($class=""){
 		$separator = $this->separator;
 		if($this->enabled){
 			$this->buttons = $this->getButtons();
@@ -153,9 +155,7 @@ class Switcher{
 		}
 	}
 	
-	function makeHeadTag(){
+	public function makeHeadTag(){
 		return "<link rel='stylesheet' href='".$this->dir."/".$this->selected.".css' type='text/css' />\n";
 	}
 }
-
-?>
